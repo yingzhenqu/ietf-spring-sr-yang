@@ -1,4 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+    <!ENTITY RFC2119 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+    <!ENTITY RFC6020 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml'>
+    <!ENTITY RFC6991 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
+    <!ENTITY RFC7950 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
+    <!ENTITY RFC8294 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8294.xml'>
+    <!ENTITY RFC8349 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8349.xml'>
+    <!ENTITY RFC8402 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8402.xml'>
+    <!ENTITY RFC8476 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8476.xml'>
+    <!ENTITY RFC8491 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8491.xml'>
+    ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes"?>
 <?rfc tocdepth="4"?>
@@ -51,7 +71,7 @@
     <workgroup>SPRING Working Group</workgroup>
     <abstract>
       <t>
-	  This document defines a YANG data model (<xref target="RFC6020" pageno="false" format="default" />, <xref target="RFC7950" pageno="false" format="default" />) for segment routing (<xref target="I-D.ietf-spring-segment-routing" pageno="false" format="default" />) configuration and operation.
+	  This document defines a YANG data model (<xref target="RFC6020" pageno="false" format="default" />, <xref target="RFC7950" pageno="false" format="default" />) for segment routing (<xref target="RFC8402" pageno="false" format="default" />) configuration and operation.
 	  This YANG model is intended to be used on network elements to configure or operate segment routing.
 	  This document defines also generic containers that SHOULD be reused by IGP protocol modules to support segment routing.
 	  </t>
@@ -314,6 +334,11 @@ module: ietf-segment-routing
       the network device.</t></list></t>
     </section>
     <section anchor="yang" title="YANG Module" toc="default">
+      <t>The following RFCs and drafts are not referenced in the document text but
+      are referenced in the ietf-segment-rouuting-common.yang and/or ietf-segment-routing.yang 
+      module: <xref target="RFC6991"/>, <xref target="RFC8294"/>,
+      and <xref target="RFC8476"/>.
+      </t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
 <CODE BEGINS> file "ietf-segment-routing-common@2018-06-25.yang"
@@ -1281,188 +1306,16 @@ module ietf-segment-routing {
   </middle>
   <back>
     <references title="Normative References">
-      <reference anchor="RFC2119">
-        <front>
-          <title abbrev="RFC Key Words">Key words for use in RFCs to Indicate Requirement Levels</title>
-          <author initials="S." surname="Bradner" fullname="Scott Bradner">
-            <organization>Harvard University</organization>
-            <address>
-              <postal>
-                <street>1350 Mass. Ave.</street>
-                <street>Cambridge</street>
-                <street>MA 02138</street>
-              </postal>
-              <phone>- +1 617 495 3864</phone>
-              <email>sob@harvard.edu</email>
-            </address>
-          </author>
-          <date year="1997" month="March" />
-          <area>General</area>
-          <keyword>keyword</keyword>
-          <abstract>
-            <t>
-   In many standards track documents several words are used to signify
-   the requirements in the specification.  These words are often
-   capitalized.  This document defines these words as they should be
-   interpreted in IETF documents.  Authors who follow these guidelines
-   should incorporate this phrase near the beginning of their document:
-
-<list><t>
-      The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
-      "OPTIONAL" in this document are to be interpreted as described in
-      RFC 2119.
-</t></list></t>
-            <t>
-   Note that the force of these words is modified by the requirement
-   level of the document in which they are used.
-</t>
-          </abstract>
-        </front>
-        <seriesInfo name="BCP" value="14" />
-        <seriesInfo name="RFC" value="2119" />
-        <format type="TXT" octets="4723" target="http://www.rfc-editor.org/rfc/rfc2119.txt" />
-        <format type="HTML" octets="17970" target="http://xml.resource.org/public/rfc/html/rfc2119.html" />
-        <format type="XML" octets="5777" target="http://xml.resource.org/public/rfc/xml/rfc2119.xml" />
-      </reference>
-      <reference anchor="RFC6020">
-        <front>
-          <title>YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)</title>
-          <author initials="M." surname="Bjorklund" fullname="M. Bjorklund">
-            <organization />
-          </author>
-          <date year="2010" month="October" />
-          <abstract>
-            <t>YANG is a data modeling language used to model configuration and state data manipulated by the Network Configuration Protocol (NETCONF), NETCONF remote procedure calls, and NETCONF notifications. [STANDARDS-TRACK]</t>
-          </abstract>
-        </front>
-        <seriesInfo name="RFC" value="6020" />
-        <format type="TXT" octets="324178" target="http://www.rfc-editor.org/rfc/rfc6020.txt" />
-      </reference>
-      <reference anchor="RFC7950">
-        <front>
-          <title>The YANG 1.1 Data Modeling Language</title>
-          <author initials="M." surname="Bjorklund" fullname="M. Bjorklund">
-            <organization />
-          </author>
-          <date year="2016" month="August" />
-          <abstract>
-            <t>   YANG is a data modeling language used to model configuration data,
-   state data, Remote Procedure Calls, and notifications for network
-   management protocols.  This document describes the syntax and
-   semantics of version 1.1 of the YANG language.  YANG version 1.1 is a
-   maintenance release of the YANG language, addressing ambiguities and
-   defects in the original specification.  There are a small number of
-   backward incompatibilities from YANG version 1.  This document also
-   specifies the YANG mappings to the Network Configuration Protocol
-   (NETCONF). [STANDARDS-TRACK]</t>
-          </abstract>
-        </front>
-        <seriesInfo name="RFC" value="7950" />
-        <format type="TXT" octets="324178" target="http://www.rfc-editor.org/rfc/rfc7950.txt" />
-      </reference>
-      <reference anchor="I-D.ietf-spring-segment-routing">
-        <front>
-          <title>Segment Routing Architecture</title>
-          <author initials="C" surname="Filsfils" fullname="Clarence Filsfils">
-            <organization />
-          </author>
-          <author initials="S" surname="Previdi" fullname="Stefano Previdi">
-            <organization />
-          </author>
-          <author initials="B" surname="Decraene" fullname="Bruno Decraene">
-            <organization />
-          </author>
-          <author initials="S" surname="Litkowski" fullname="Stephane Litkowski">
-            <organization />
-          </author>
-          <author initials="R" surname="Shakir" fullname="Rob Shakir">
-            <organization />
-          </author>
-          <date month="June" day="20" year="2017" />
-          <abstract>
-            <t>   Segment Routing (SR) leverages the source routing paradigm.  A node
-   steers a packet through an ordered list of instructions, called
-   segments.  A segment can represent any instruction, topological or
-   service-based.  A segment can have a local semantic to an SR node or
-   global within an SR domain.  SR allows to enforce a flow through any
-   topological path and service chain while maintaining per-flow state
-   only at the ingress node to the SR domain.
-
-   Segment Routing can be directly applied to the MPLS architecture with
-   no change on the forwarding plane.  A segment is encoded as an MPLS
-   label.  An ordered list of segments is encoded as a stack of labels.
-   The segment to process is on the top of the stack.  Upon completion
-   of a segment, the related label is popped from the stack.
-
-   Segment Routing can be applied to the IPv6 architecture, with a new
-   type of routing header.  A segment is encoded as an IPv6 address.  An
-   ordered list of segments is encoded as an ordered list of IPv6
-   addresses in the routing header.  The active segment is indicated by
-   the Destination Address of the packet.  The next active segment is
-   indicated by a pointer in the new routing header.</t>
-          </abstract>
-        </front>
-        <seriesInfo name="Internet-Draft" value="draft-ietf-spring-segment-routing-12" />
-        <format type="TXT" target="http://www.ietf.org/internet-drafts/draft-ietf-spring-segment-routing-12.txt" />
-      </reference>
-      <reference anchor="I-D.ietf-isis-segment-routing-msd">
-        <front>
-          <title>Signaling MSD (Maximum SID Depth) using IS-IS</title>
-          <author initials="J" surname="Tantsura" fullname="Jeff Tantsura">
-            <organization />
-          </author>
-          <author initials="U" surname="Chunduri" fullname="Uma Chunduri">
-            <organization />
-          </author>
-          <author initials="S" surname="Aldrin" fullname="Sam Aldrin">
-            <organization />
-          </author>
-          <author initials="L" surname="Ginsberg" fullname="Les Ginsberg">
-            <organization />
-          </author>
-          <date month="June" day="04" year="2017" />
-          <abstract>
-            <t>This document proposes a way to expose Maximum SID Depth (MSD)
-   supported by a node at node and/or link level by an ISIS Router.  In
-   a Segment Routing (SR) enabled network a centralized controller that
-   programs SR tunnels at the head-end node needs to know the MSD
-   information at node level and/or link level to push the label stack
-   of an appropriate depth. </t>
-          </abstract>
-        </front>
-        <seriesInfo name="Internet-Draft" value="draft-ietf-isis-segment-routing-msd-04" />
-        <format type="TXT" target="https://www.ietf.org/id/draft-ietf-isis-segment-routing-msd-04.txt" />
-      </reference>
-      <reference anchor="I-D.ietf-ospf-segment-routing-msd">
-        <front>
-          <title>Signaling MSD (Maximum SID Depth) using OSPF</title>
-          <author initials="J" surname="Tantsura" fullname="Jeff Tantsura">
-            <organization />
-          </author>
-          <author initials="U" surname="Chunduri" fullname="Uma Chunduri">
-            <organization />
-          </author>
-          <author initials="S" surname="Aldrin" fullname="Sam Aldrin">
-            <organization />
-          </author>
-          <author initials="P" surname="Psenak" fullname="Peter Psenak">
-            <organization />
-          </author>
-          <date month="June" day="04" year="2017" />
-          <abstract>
-            <t>This document proposes a way to expose Maximum SID Depth (MSD)
-   supported by a node at node and/or link level by an OSPF Router.  In
-   a Segment Routing (SR) enabled network a centralized controller that
-   programs SR tunnels at the head-end node needs to know the MSD
-   information at node level and/or link level to push the label stack
-   of an appropriate depth .  Here the term OSPF means both OSPFv2 and
-   OSPFv3. </t>
-          </abstract>
-        </front>
-        <seriesInfo name="Internet-Draft" value="draft-ietf-ospf-segment-routing-msd-05" />
-        <format type="TXT" target="https://www.ietf.org/id/draft-ietf-ospf-segment-routing-msd-05.txt" />
-      </reference>
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+      &RFC2119;
+      &RFC6020;
+      &RFC6991;
+      &RFC7950;
+      &RFC8294;
+      &RFC8349;
+      &RFC8402;
+      &RFC8476;
+      &RFC8491;
     </references>
     <references title="Informative References">
     <?rfc include="reference.I-D.ietf-netmod-yang-tree-diagrams.xml"?>
