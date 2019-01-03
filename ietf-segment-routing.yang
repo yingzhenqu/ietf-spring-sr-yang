@@ -151,15 +151,16 @@ module ietf-segment-routing {
 
   feature mapping-server {
     description
-      "Support of SRMS.";
+      "Support of Segment Routing Mapping Server (SRMS).";
   }
 
   feature protocol-srgb {
     description
-      "Support per-protocol srgb configuration.";
+      "Support per-protocol Segment Routing Global Block (SRGB)
+       configuration.";
   }
 
-  feature msd {
+  feature max-sid-depth {
     description
       "Support of signaling MSD (Maximum SID Depth) in IGP.";
   }
@@ -318,7 +319,7 @@ module ietf-segment-routing {
       }
       uses sr-cmn:node-capabilities;
       container msd {
-        if-feature "msd";
+        if-feature "max-sid-depth";
         description
           "MSD configuration.";
         uses msd-cfg;

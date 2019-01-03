@@ -10,6 +10,12 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
     <!ENTITY RFC8294 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8294.xml'>
+    <!ENTITY RFC8340 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'>
+    <!ENTITY RFC8342 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8342.xml'>
+    <!ENTITY RFC8343 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8343.xml'>
     <!ENTITY RFC8349 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8349.xml'>
     <!ENTITY RFC8402 PUBLIC ''
@@ -76,12 +82,6 @@
 	  This document defines also generic containers that SHOULD be reused by IGP protocol modules to support segment routing.
 	  </t>
     </abstract>
-    <note title="Requirements Language">
-      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
-      "OPTIONAL" in this document are to be interpreted as described
-      in <xref target="RFC2119" pageno="false" format="default" />.</t>
-    </note>
   </front>
   <middle>
     <section anchor="introduction" title="Introduction" toc="default">
@@ -89,11 +89,37 @@
       This document defines a YANG data model for segment routing configuration and operation. 
 	  This document does not define the IGP extensions to support segment routing but defines generic
 	  groupings that SHOULD be reused by IGP extension modules. The reason of this design choice is to not require implementations to support all IGP extensions. For example, an implementation may support IS-IS extension but not OSPF.
-	  
 	  </t>
+      <t>The YANG modules in this document conform to the Network Management 
+        Datastore Architecture (NMDA) <xref target="RFC8342"/>.
+      </t>
+    </section>
+    <section anchor="term" title="Terminology and Notation" toc="default">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", 
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
+        in this document are to be interpreted as described in 
+        <xref target="RFC2119"/>.</t>
       <section anchor="tree-info" title="Tree diagram" toc="default">
       <t>Tree diagrams used in this document follow the notation defined in
-      <xref target="I-D.ietf-netmod-yang-tree-diagrams"/>.</t>
+      <xref target="RFC8340"/>.</t>
+      </section>
+      <section anchor="sec.prefixes" title="Prefixes in Data Node Names">
+        <t>In this document, names of data nodes, actions, and other
+        data model objects are often used without a prefix, as long as
+        it is clear from the context in which YANG module each name is
+        defined. Otherwise, names are prefixed using the standard prefix
+        associated with the corresponding YANG module, as shown in <xref target="tab.prefixes"/>.</t>
+
+        <texttable anchor="tab.prefixes" title="Prefixes and Corresponding YANG Modules">
+          <ttcol>Prefix</ttcol>
+          <ttcol>YANG module</ttcol>
+          <ttcol>Reference</ttcol>
+          <c>if</c><c>ietf-interfaces</c><c><xref target="RFC8343"/></c>
+          <c>rt</c><c>ietf-routing</c><c><xref target="RFC8349"/></c>
+          <c>rt-types</c><c>ietf-routing-types</c><c><xref target="RFC8294"/></c>
+          <c>yang</c><c>ietf-yang-types</c><c><xref target="RFC6991"/></c>
+          <c>inet</c><c>ietf-inet-types</c><c><xref target="RFC6991"/></c>
+        </texttable>
       </section>
     </section>
     <section anchor="design" title="Design of the Data Model" toc="default">
@@ -1312,13 +1338,15 @@ module ietf-segment-routing {
       &RFC6991;
       &RFC7950;
       &RFC8294;
+      &RFC8342;
+      &RFC8343;
       &RFC8349;
       &RFC8402;
       &RFC8476;
       &RFC8491;
     </references>
     <references title="Informative References">
-    <?rfc include="reference.I-D.ietf-netmod-yang-tree-diagrams.xml"?>
+      &RFC8340;
     </references>
   </back>
 </rfc>
