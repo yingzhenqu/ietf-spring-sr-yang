@@ -137,9 +137,9 @@ module ietf-segment-routing-common {
       }
   }
 
-  grouping srgb-cfg {
+  grouping srgb {
     description
-      "Grouping for SR Label Range configuration.";
+      "Grouping for SR Global Label range.";
     list srgb {
       key "lower-bound upper-bound";
       ordered-by user;
@@ -150,9 +150,9 @@ module ietf-segment-routing-common {
     }
   }
 
-  grouping srlb-cfg {
+  grouping srlb {
     description
-      "Grouping for SR Local Block range configuration.";
+      "Grouping for SR Local Block range.";
     list srlb {
       key "lower-bound upper-bound";
       ordered-by user;
@@ -186,9 +186,20 @@ module ietf-segment-routing-common {
     }
   }
 
-  grouping ipv4-sid-cfg {
+  grouping prefix-sid {
     description
       "This grouping defines cfg of prefix SID.";
+    leaf prefix {
+      type inet:ip-prefix;
+      description
+        "connected prefix sid.";
+    }
+    uses prefix-sid-attributes;
+  }
+
+  grouping ipv4-sid {
+    description
+      "This grouping defines ipv4 prefix SID.";
     leaf prefix {
       type inet:ipv4-prefix;
       description
@@ -196,9 +207,9 @@ module ietf-segment-routing-common {
     }
     uses prefix-sid-attributes;
   }
-  grouping ipv6-sid-cfg {
+  grouping ipv6-sid {
     description
-      "This grouping defines cfg of prefix SID.";
+      "This grouping defines ipv6 prefix SID.";
     leaf prefix {
       type inet:ipv6-prefix;
       description

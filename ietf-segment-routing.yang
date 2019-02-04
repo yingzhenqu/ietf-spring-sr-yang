@@ -183,7 +183,7 @@ module ietf-segment-routing {
       "OSPF/BGP router id or ISIS system ID.";
   }
 
-  grouping controlplane-cfg {
+  grouping sr-controlplane {
     description
       "Defines protocol configuration.";
     container segment-routing {
@@ -221,7 +221,7 @@ module ietf-segment-routing {
     }
   }
 
-  grouping igp-interface-cfg {
+  grouping igp-interface {
     description
       "Grouping for IGP interface cfg.";
     container segment-routing {
@@ -273,7 +273,7 @@ module ietf-segment-routing {
     }
   }
 
-  grouping msd-cfg {
+  grouping max-sid-depth {
     description
       "MSD configuration grouping.";
     leaf node-msd {
@@ -322,7 +322,7 @@ module ietf-segment-routing {
         if-feature "max-sid-depth";
         description
           "MSD configuration.";
-        uses msd-cfg;
+        uses max-sid-depth;
       }
       container bindings {
         description
@@ -341,24 +341,14 @@ module ietf-segment-routing {
               description
                 "Name of the mapping policy.";
             }
-            container ipv4 {
+            container entries {
               description
-                "IPv4 mapping entries.";
+                "IPv4/IPv6 mapping entries.";
               list mapping-entry {
                 key "prefix algorithm";
                 description
                   "Mapping entries.";
-                uses sr-cmn:ipv4-sid-cfg;
-              }
-            }
-            container ipv6 {
-              description
-                "IPv6 mapping entries.";
-              list mapping-entry {
-                key "prefix algorithm";
-                description
-                  "Mapping entries.";
-                uses sr-cmn:ipv6-sid-cfg;
+                uses sr-cmn:prefix-sid;
               }
             }
           }
@@ -366,65 +356,35 @@ module ietf-segment-routing {
         container connected-prefix-sid-map {
           description
             "Prefix SID configuration.";
-          container ipv4 {
+          list connected-prefix-sid {
+            key "prefix algorithm";
             description
-              "Parameters associated with IPv4 prefix SID";
-            list ipv4-prefix-sid {
-              key "prefix algorithm";
-              description
-                "List of prefix SID
-                 mapped to IPv4 local prefixes.";
-              uses sr-cmn:ipv4-sid-cfg;
-              uses sr-cmn:last-hop-behavior;
-            }
-          }
-          container ipv6 {
-            description
-              "Parameters associated with IPv6 prefix SID";
-            list ipv6-prefix-sid {
-              key "prefix algorithm";
-              description
-                "List of prefix SID
-                 mapped to IPv6 local prefixes.";
-              uses sr-cmn:ipv6-sid-cfg;
-              uses sr-cmn:last-hop-behavior;
-            }
+              "List of prefix SID mapped to
+               ipv4/ipv6 local prefixes.";
+            uses sr-cmn:prefix-sid;
+            uses sr-cmn:last-hop-behavior;
           }
         }
         container local-prefix-sid {
           description
             "Local sid configuration.";
-          container ipv4 {
+          list local-prefix-sid {
+            key "prefix algorithm";
             description
-              "List of local ipv4 sids.";
-            list ipv4-prefix-sid-local {
-              key "prefix algorithm";
-              description
-                "List of local prefix-sid.";
-              uses sr-cmn:ipv4-sid-cfg;
-            }
-          }
-          container ipv6 {
-            description
-              "List of local ipv6 sids.";
-            list ipv6-prefix-sid-local {
-              key "prefix algorithm";
-              description
-                "List of local prefix-sid.";
-              uses sr-cmn:ipv6-sid-cfg;
-            }
+              "List of local ipv4/ipv6 prefix-sid.";
+            uses sr-cmn:prefix-sid;
           }
         }
       }
       container global-srgb {
         description
           "Global SRGB configuration.";
-        uses sr-cmn:srgb-cfg;
+        uses sr-cmn:srgb;
       }
       container srlb {
         description
           "SR Local Block configuration.";
-        uses sr-cmn:srlb-cfg;
+        uses sr-cmn:srlb;
       }
 
       list label-blocks {
