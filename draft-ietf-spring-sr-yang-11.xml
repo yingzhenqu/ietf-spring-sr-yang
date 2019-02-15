@@ -135,7 +135,7 @@ module: ietf-segment-routing
        |  +--ro transport-planes* [transport-plane]
        |  |  +--ro transport-plane    identityref
        |  +--ro entropy-readable-label-depth?   uint8
-       +--rw msd {msd}?
+       +--rw msd {max-sid-depth}?
        |  +--rw node-msd?   uint8
        |  +--rw link-msd
        |     +--rw link-msds* [interface]
@@ -144,53 +144,30 @@ module: ietf-segment-routing
        +--rw bindings
        |  +--rw mapping-server {mapping-server}?
        |  |  +--rw policy* [name]
-       |  |     +--rw name    string
-       |  |     +--rw ipv4
-       |  |     |  +--rw mapping-entry* [prefix algorithm]
-       |  |     |     +--rw prefix        inet:ipv4-prefix
-       |  |     |     +--rw value-type?   enumeration
-       |  |     |     +--rw start-sid     uint32
-       |  |     |     +--rw range?        uint32
-       |  |     |     +--rw algorithm     identityref
-       |  |     +--rw ipv6
+       |  |     +--rw name       string
+       |  |     +--rw entries
        |  |        +--rw mapping-entry* [prefix algorithm]
-       |  |           +--rw prefix        inet:ipv6-prefix
+       |  |           +--rw prefix        inet:ip-prefix
        |  |           +--rw value-type?   enumeration
        |  |           +--rw start-sid     uint32
        |  |           +--rw range?        uint32
        |  |           +--rw algorithm     identityref
        |  +--rw connected-prefix-sid-map
-       |  |  +--rw ipv4
-       |  |  |  +--rw ipv4-prefix-sid* [prefix algorithm]
-       |  |  |     +--rw prefix               inet:ipv4-prefix
-       |  |  |     +--rw value-type?          enumeration
-       |  |  |     +--rw start-sid            uint32
-       |  |  |     +--rw range?               uint32
-       |  |  |     +--rw algorithm            identityref
-       |  |  |     +--rw last-hop-behavior?   enumeration {sid-last-hop-behavior}?
-       |  |  +--rw ipv6
-       |  |     +--rw ipv6-prefix-sid* [prefix algorithm]
-       |  |        +--rw prefix               inet:ipv6-prefix
-       |  |        +--rw value-type?          enumeration
-       |  |        +--rw start-sid            uint32
-       |  |        +--rw range?               uint32
-       |  |        +--rw algorithm            identityref
-       |  |        +--rw last-hop-behavior?   enumeration {sid-last-hop-behavior}?
+       |  |  +--rw connected-prefix-sid* [prefix algorithm]
+       |  |     +--rw prefix               inet:ip-prefix
+       |  |     +--rw value-type?          enumeration
+       |  |     +--rw start-sid            uint32
+       |  |     +--rw range?               uint32
+       |  |     +--rw algorithm            identityref
+       |  |     +--rw last-hop-behavior?   enumeration 
+       |  |                                {sid-last-hop-behavior}?
        |  +--rw local-prefix-sid
-       |     +--rw ipv4
-       |     |  +--rw ipv4-prefix-sid-local* [prefix algorithm]
-       |     |     +--rw prefix        inet:ipv4-prefix
-       |     |     +--rw value-type?   enumeration
-       |     |     +--rw start-sid     uint32
-       |     |     +--rw range?        uint32
-       |     |     +--rw algorithm     identityref
-       |     +--rw ipv6
-       |        +--rw ipv6-prefix-sid-local* [prefix algorithm]
-       |           +--rw prefix        inet:ipv6-prefix
-       |           +--rw value-type?   enumeration
-       |           +--rw start-sid     uint32
-       |           +--rw range?        uint32
-       |           +--rw algorithm     identityref
+       |     +--rw local-prefix-sid* [prefix algorithm]
+       |        +--rw prefix        inet:ip-prefix
+       |        +--rw value-type?   enumeration
+       |        +--rw start-sid     uint32
+       |        +--rw range?        uint32
+       |        +--rw algorithm     identityref
        +--rw global-srgb
        |  +--rw srgb* [lower-bound upper-bound]
        |     +--rw lower-bound    uint32
@@ -213,8 +190,9 @@ module: ietf-segment-routing
              +--ro algorithm?         uint8
              +--ro source             inet:ip-address
              +--ro used?              boolean
-             +--ro source-protocol    -> /rt:routing/control-plane-protocols
-             +                           /control-plane-protocol/name
+             +--ro source-protocol    -> /rt:routing
+                                         /control-plane-protocols
+                                         /control-plane-protocol/name
              +--ro binding-type       enumeration
              +--ro scope?             enumeration
 
@@ -223,7 +201,8 @@ module: ietf-segment-routing
     |  +--ro srgb-collisions*
     |     +--ro lower-bound?          uint32
     |     +--ro upper-bound?          uint32
-    |     +--ro routing-protocol?     -> /rt:routing/control-plane-protocols
+    |     +--ro routing-protocol?     -> /rt:routing
+    |                                    /control-plane-protocols
     |                                    /control-plane-protocol/name
     |     +--ro originating-rtr-id?   router-id
     +---n segment-routing-global-sid-collision
@@ -232,13 +211,16 @@ module: ietf-segment-routing
     |  +--ro original-target?       string
     |  +--ro original-sid-rtr-id?   router-id
     |  +--ro index?                 uint32
-    |  +--ro routing-protocol?      -> /rt:routing/control-plane-protocols
+    |  +--ro routing-protocol?      -> /rt:routing
+    |                                  /control-plane-protocols
     |                                  /control-plane-protocol/name
     +---n segment-routing-index-out-of-range
        +--ro received-target?    string
        +--ro received-index?     uint32
-       +--ro routing-protocol?   -> /rt:routing/control-plane-protocols
+       +--ro routing-protocol?   -> /rt:routing
+                                    /control-plane-protocols
                                     /control-plane-protocol/name
+
 </artwork>
       </figure>
     </section>
@@ -367,7 +349,7 @@ module: ietf-segment-routing
       </t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing-common@2018-06-25.yang"
+<CODE BEGINS> file "ietf-segment-routing-common@2019-02-15.yang"
 module ietf-segment-routing-common {
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing-common";
   prefix sr-cmn;
@@ -415,10 +397,19 @@ module ietf-segment-routing-common {
 
   reference "RFC XXXX";
 
+  revision 2019-02-15 {
+    description
+      "
+      * Addressed YANG Doctor's review comments;
+      ";
+    reference "RFC XXXX: YANG Data Model for Segment Routing.";
+  }
+
   revision 2018-06-25 {
     description
       "
-      * Renamed readable-label-stack-depth to entropy-readable-label-depth;
+      * Renamed readable-label-stack-depth to 
+      * entropy-readable-label-depth;
       ";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
   }
@@ -507,9 +498,9 @@ module ietf-segment-routing-common {
       }
   }
 
-  grouping srgb-cfg {
+  grouping srgb {
     description
-      "Grouping for SR Label Range configuration.";
+      "Grouping for SR Global Label range.";
     list srgb {
       key "lower-bound upper-bound";
       ordered-by user;
@@ -520,9 +511,9 @@ module ietf-segment-routing-common {
     }
   }
 
-  grouping srlb-cfg {
+  grouping srlb {
     description
-      "Grouping for SR Local Block range configuration.";
+      "Grouping for SR Local Block range.";
     list srlb {
       key "lower-bound upper-bound";
       ordered-by user;
@@ -556,9 +547,20 @@ module ietf-segment-routing-common {
     }
   }
 
-  grouping ipv4-sid-cfg {
+  grouping prefix-sid {
     description
       "This grouping defines cfg of prefix SID.";
+    leaf prefix {
+      type inet:ip-prefix;
+      description
+        "connected prefix sid.";
+    }
+    uses prefix-sid-attributes;
+  }
+
+  grouping ipv4-sid {
+    description
+      "This grouping defines ipv4 prefix SID.";
     leaf prefix {
       type inet:ipv4-prefix;
       description
@@ -566,9 +568,9 @@ module ietf-segment-routing-common {
     }
     uses prefix-sid-attributes;
   }
-  grouping ipv6-sid-cfg {
+  grouping ipv6-sid {
     description
-      "This grouping defines cfg of prefix SID.";
+      "This grouping defines ipv6 prefix SID.";
     leaf prefix {
       type inet:ipv6-prefix;
       description
@@ -658,7 +660,7 @@ module ietf-segment-routing-common {
   }
 }
 <CODE ENDS>
-<CODE BEGINS> file "ietf-segment-routing@2018-06-25.yang"
+<CODE BEGINS> file "ietf-segment-routing@2019-02-15.yang"
 module ietf-segment-routing {
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing";
   prefix sr;
@@ -720,6 +722,14 @@ module ietf-segment-routing {
      see the RFC itself for full legal notices.";
 
   reference "RFC XXXX";
+
+  revision 2019-02-15 {
+    description
+      "
+      * Addressed YANG Doctor's review comments;
+      ";
+    reference "RFC XXXX: YANG Data Model for Segment Routing.";
+  }
 
   revision 2018-06-25 {
     description
@@ -812,15 +822,16 @@ module ietf-segment-routing {
 
   feature mapping-server {
     description
-      "Support of SRMS.";
+      "Support of Segment Routing Mapping Server (SRMS).";
   }
 
   feature protocol-srgb {
     description
-      "Support per-protocol srgb configuration.";
+      "Support per-protocol Segment Routing Global Block (SRGB)
+       configuration.";
   }
 
-  feature msd {
+  feature max-sid-depth {
     description
       "Support of signaling MSD (Maximum SID Depth) in IGP.";
   }
@@ -843,7 +854,7 @@ module ietf-segment-routing {
       "OSPF/BGP router id or ISIS system ID.";
   }
 
-  grouping controlplane-cfg {
+  grouping sr-controlplane {
     description
       "Defines protocol configuration.";
     container segment-routing {
@@ -881,7 +892,7 @@ module ietf-segment-routing {
     }
   }
 
-  grouping igp-interface-cfg {
+  grouping igp-interface {
     description
       "Grouping for IGP interface cfg.";
     container segment-routing {
@@ -933,7 +944,7 @@ module ietf-segment-routing {
     }
   }
 
-  grouping msd-cfg {
+  grouping max-sid-depth {
     description
       "MSD configuration grouping.";
     leaf node-msd {
@@ -943,7 +954,8 @@ module ietf-segment-routing {
     }
     container link-msd {
       description
-        "Link MSD is a number represetns the particular link MSD value.";
+        "Link MSD is a number representing the particular link 
+         MSD value.";
       list link-msds {
         key "interface";
         description
@@ -979,10 +991,10 @@ module ietf-segment-routing {
       }
       uses sr-cmn:node-capabilities;
       container msd {
-        if-feature "msd";
+        if-feature "max-sid-depth";
         description
           "MSD configuration.";
-        uses msd-cfg;
+        uses max-sid-depth;
       }
       container bindings {
         description
@@ -1001,24 +1013,14 @@ module ietf-segment-routing {
               description
                 "Name of the mapping policy.";
             }
-            container ipv4 {
+            container entries {
               description
-                "IPv4 mapping entries.";
+                "IPv4/IPv6 mapping entries.";
               list mapping-entry {
                 key "prefix algorithm";
                 description
                   "Mapping entries.";
-                uses sr-cmn:ipv4-sid-cfg;
-              }
-            }
-            container ipv6 {
-              description
-                "IPv6 mapping entries.";
-              list mapping-entry {
-                key "prefix algorithm";
-                description
-                  "Mapping entries.";
-                uses sr-cmn:ipv6-sid-cfg;
+                uses sr-cmn:prefix-sid;
               }
             }
           }
@@ -1026,65 +1028,35 @@ module ietf-segment-routing {
         container connected-prefix-sid-map {
           description
             "Prefix SID configuration.";
-          container ipv4 {
+          list connected-prefix-sid {
+            key "prefix algorithm";
             description
-              "Parameters associated with IPv4 prefix SID";
-            list ipv4-prefix-sid {
-              key "prefix algorithm";
-              description
-                "List of prefix SID
-                 mapped to IPv4 local prefixes.";
-              uses sr-cmn:ipv4-sid-cfg;
-              uses sr-cmn:last-hop-behavior;
-            }
-          }
-          container ipv6 {
-            description
-              "Parameters associated with IPv6 prefix SID";
-            list ipv6-prefix-sid {
-              key "prefix algorithm";
-              description
-                "List of prefix SID
-                 mapped to IPv6 local prefixes.";
-              uses sr-cmn:ipv6-sid-cfg;
-              uses sr-cmn:last-hop-behavior;
-            }
+              "List of prefix SID mapped to
+               ipv4/ipv6 local prefixes.";
+            uses sr-cmn:prefix-sid;
+            uses sr-cmn:last-hop-behavior;
           }
         }
         container local-prefix-sid {
           description
             "Local sid configuration.";
-          container ipv4 {
+          list local-prefix-sid {
+            key "prefix algorithm";
             description
-              "List of local ipv4 sids.";
-            list ipv4-prefix-sid-local {
-              key "prefix algorithm";
-              description
-                "List of local prefix-sid.";
-              uses sr-cmn:ipv4-sid-cfg;
-            }
-          }
-          container ipv6 {
-            description
-              "List of local ipv6 sids.";
-            list ipv6-prefix-sid-local {
-              key "prefix algorithm";
-              description
-                "List of local prefix-sid.";
-              uses sr-cmn:ipv6-sid-cfg;
-            }
+              "List of local ipv4/ipv6 prefix-sid.";
+            uses sr-cmn:prefix-sid;
           }
         }
       }
       container global-srgb {
         description
           "Global SRGB configuration.";
-        uses sr-cmn:srgb-cfg;
+        uses sr-cmn:srgb;
       }
       container srlb {
         description
           "SR Local Block configuration.";
-        uses sr-cmn:srlb-cfg;
+        uses sr-cmn:srlb;
       }
 
       list label-blocks {
