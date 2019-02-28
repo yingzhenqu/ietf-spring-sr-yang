@@ -1,5 +1,7 @@
 module ietf-segment-routing-common {
-  namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing-common";
+  yang-version 1.1;
+  namespace
+    "urn:ietf:params:xml:ns:yang:ietf-segment-routing-common";
   prefix sr-cmn;
 
   import ietf-inet-types {
@@ -27,10 +29,10 @@ module ietf-segment-routing-common {
 
     ";
   description
-    "The YANG module defines a collection of types and groupings for
-     Segment routing.
+    "The YANG module defines a collection of generic types and
+     grouping for Segment Routing (SR) as described in RFC 8402.
 
-     Copyright (c) 2017 IETF Trust and the persons identified as
+     Copyright (c) 2019 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -45,46 +47,9 @@ module ietf-segment-routing-common {
 
   reference "RFC XXXX";
 
-  revision 2019-02-15 {
+  revision 2019-02-28 {
     description
-      "
-      * Addressed YANG Doctor's review comments;
-      ";
-    reference "RFC XXXX: YANG Data Model for Segment Routing.";
-  }
-
-  revision 2018-06-25 {
-    description
-      "
-      * Renamed readable-label-stack-depth to entropy-readable-label-depth;
-      ";
-    reference "RFC XXXX: YANG Data Model for Segment Routing.";
-  }
-  revision 2017-07-01 {
-    description
-      "
-       *Conform to RFC6087BIS Appendix C
-      ";
-    reference "RFC XXXX: YANG Data Model for Segment Routing.";
-  }
-  revision 2017-03-10 {
-    description
-      "
-       * Add support of SRLB
-      ";
-    reference "RFC XXXX: YANG Data Model for Segment Routing.";
-  }
-  revision 2016-10-28 {
-    description
-      "
-       * Add support of MSD (Maximum SID Depth)
-       * Update contact info
-      ";
-    reference "RFC XXXX: YANG Data Model for Segment Routing.";
-  }
-  revision 2016-10-24 {
-    description
-      "Initial";
+      "Initial version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
   }
 
@@ -120,13 +85,14 @@ module ietf-segment-routing-common {
   identity prefix-sid-algorithm-shortest-path {
     base prefix-sid-algorithm;
     description
-      "The default behavior of prefix-sid algorithm.";
+      "Shortest Path First (SPF) prefix-sid algorithm. This
+       is the default algorthm.";
   }
 
   identity prefix-sid-algorithm-strict-spf {
     base prefix-sid-algorithm;
     description
-      "This algorithm mandates that the packet is forwared
+      "This algorithm mandates that the packet is forwarded
        according to ECMP-aware SPF algorithm.";
   }
 
@@ -136,13 +102,13 @@ module ietf-segment-routing-common {
     leaf lower-bound {
         type uint32;
         description
-          "Lower value in the block.";
-      }
+          "Lower value in the label range.";
+    }
     leaf upper-bound {
         type uint32;
         description
-          "Upper value in the block.";
-      }
+          "Upper value in the label range.";
+    }
   }
 
   grouping srgb {
@@ -152,8 +118,7 @@ module ietf-segment-routing-common {
       key "lower-bound upper-bound";
       ordered-by user;
       description
-        "List of global blocks to be
-         advertised.";
+        "List of global blocks to be advertised.";
       uses srlr;
     }
   }
@@ -177,20 +142,17 @@ module ietf-segment-routing-common {
       type enumeration {
         enum "index" {
           description
-            "The value will be
-             interpreted as an index.";
+            "The value will be interpreted as an index.";
         }
         enum "absolute" {
           description
-            "The value will become
-             interpreted as an absolute
+            "The value will become interpreted as an absolute
              value.";
         }
       }
       default "index";
       description
-        "This leaf defines how value
-         must be interpreted.";
+        "This leaf defines how value must be interpreted.";
     }
   }
 
@@ -207,21 +169,21 @@ module ietf-segment-routing-common {
 
   grouping ipv4-sid {
     description
-      "This grouping defines ipv4 prefix SID.";
+      "Grouping for an IPv4 prefix SID.";
     leaf prefix {
       type inet:ipv4-prefix;
       description
-        "connected prefix sid.";
+        "Connected IPv4 prefix sid.";
     }
     uses prefix-sid-attributes;
   }
   grouping ipv6-sid {
     description
-      "This grouping defines ipv6 prefix SID.";
+      "Grouping for an IPv6 prefix SID.";
     leaf prefix {
       type inet:ipv6-prefix;
       description
-        "connected prefix sid.";
+        "Connected ipv6 prefix sid.";
     }
     uses prefix-sid-attributes;
   }
@@ -238,7 +200,8 @@ module ietf-segment-routing-common {
         }
         enum "no-php" {
           description
-            "Do no use PHP for the SID.";
+            "Do not use Penultimate Hop Popping (PHP)
+             for the SID.";
         }
         enum "php" {
           description
@@ -272,30 +235,26 @@ module ietf-segment-routing-common {
       leaf entropy-readable-label-depth {
         type uint8;
         description
-          "Maximum label statck depth that 
-           the router can read. ";
+          "Maximum label stack depth that a router can read.";
       }
     }
   }
 
   grouping prefix-sid-attributes {
     description
-      "Containing SR attributes for a prefix.";
+      "Grouping for Segment Routing (SR) prefix attributes.";
     uses sid-value-type;
     leaf start-sid {
       type uint32;
       mandatory true;
       description
-        "Value associated with
-         prefix. The value must
-         be interpreted in the
-         context of value-type.";
+        "Value associated with prefix. The value must be
+         interpreted in the context of value-type.";
     }
     leaf range {
       type uint32;
       description
-        "Describes how many SIDs could be
-         allocated.";
+        "Indicates how many SIDs can be allocated.";
     }
     leaf algorithm {
       type identityref {
