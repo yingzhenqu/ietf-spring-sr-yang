@@ -2,12 +2,24 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
     <!ENTITY RFC2119 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+    <!ENTITY RFC3688 PUBLIC '' 
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
+    <!ENTITY RFC5246 PUBLIC '' 
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml'>
     <!ENTITY RFC6020 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml'>
+    <!ENTITY RFC6241 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
+    <!ENTITY RFC6242 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml'>
+    <!ENTITY RFC6536 PUBLIC '' 
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6536.xml'>
     <!ENTITY RFC6991 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
     <!ENTITY RFC7950 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
+    <!ENTITY RFC8040 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'>
     <!ENTITY RFC8294 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8294.xml'>
     <!ENTITY RFC8340 PUBLIC ''
@@ -32,7 +44,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc docName="draft-ietf-spring-sr-yang-12" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc docName="draft-ietf-spring-sr-yang-13" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -42,9 +54,9 @@
       </address>
     </author>
     <author fullname="Yingzhen Qu" initials="Y" surname="Qu">
-      <organization>Huawei</organization>
+      <organization>Futurewei</organization>
       <address>
-        <email>yingzhen.qu@huawei.com</email>
+        <email>yingzhen.qu@futurewei.com</email>
       </address>
     </author>
     <author fullname="Acee Lindem" initials="A" surname="Lindem">
@@ -349,7 +361,7 @@ module: ietf-segment-routing
       </t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing-common@2019-02-28.yang"
+<CODE BEGINS> file "ietf-segment-routing-common@2019-07-06.yang"
 module ietf-segment-routing-common {
   yang-version 1.1;
   namespace
@@ -370,7 +382,7 @@ module ietf-segment-routing-common {
      Editor:    Stephane Litkowski
                <mailto:stephane.litkowski@orange.com>
      Editor:    Yingzhen Qu
-               <mailto:yingzhen.qu@huawei.com>
+               <mailto:yingzhen.qu@futurewei.com>
 
      Author:    Acee Lindem
                <mailto:acee@cisco.com>
@@ -399,7 +411,7 @@ module ietf-segment-routing-common {
 
   reference "RFC XXXX";
 
-  revision 2019-02-28 {
+  revision 2019-07-06 {
     description
       "Initial version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -618,7 +630,7 @@ module ietf-segment-routing-common {
   }
 }
 <CODE ENDS>
-<CODE BEGINS> file "ietf-segment-routing@2019-02-28.yang"
+<CODE BEGINS> file "ietf-segment-routing@2019-07-06.yang"
 module ietf-segment-routing {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing";
@@ -649,7 +661,7 @@ module ietf-segment-routing {
      Editor:    Stephane Litkowski
                <mailto:stephane.litkowski@orange.com>
      Editor:    Yingzhen Qu
-               <mailto:yingzhen.qu@huawei.com>
+               <mailto:yingzhen.qu@futurewei.com>
 
      Author:    Acee Lindem
                <mailto:acee@cisco.com>
@@ -679,7 +691,7 @@ module ietf-segment-routing {
 
   reference "RFC XXXX";
 
-  revision 2019-02-28 {
+  revision 2019-07-06 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -763,6 +775,20 @@ module ietf-segment-routing {
       container adjacency-sid {
         description
           "Adjacency SID configuration.";
+        list adj-sids {
+          uses sr-cmn:sid-value-type;
+          leaf value {
+            type uint32;
+            description
+              "Value of the Adj-SID.";
+          }
+          leaf protected {
+            type boolean;
+            default false;
+            description
+              "It is used to protect the mannual adj-SID.";
+          }
+        }
         list advertise-adj-group-sid {
           key "group-id";
           description
@@ -1142,22 +1168,86 @@ module ietf-segment-routing {
       </figure>
     </section>
     <section anchor="Security" title="Security Considerations" toc="default">
-      <t>TBD.</t>
+      <t>The YANG modules specified in this document define a schema for 
+       data that is designed to be accessed via network
+       management protocols such as NETCONF <xref target="RFC6241"/> or
+       RESTCONF <xref target="RFC8040"/>. The lowest NETCONF layer is the secure transport
+       layer, and the mandatory-to-implement secure transport is Secure Shell (SSH)
+       <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
+       mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>.</t>
+
+      <t>The NETCONF access control model <xref target="RFC6536"/> provides the 
+      means to restrict access for particular NETCONF or RESTCONF users to a
+      pre-configured subset of all available NETCONF or RESTCONF protocol 
+      operations and content.</t>
+
+      <t>There are a number of data nodes defined in the modules
+      that are writable/creatable/deletable (i.e., config true, which is the default). 
+      These data nodes may be considered sensitive or vulnerable in some network 
+      environments. Write operations (e.g., edit-config) to these data nodes without 
+      proper protection can have a negative effect on network operations. </t>  
+
+      <t>Some of the readable data nodes in the modules
+      may be considered sensitive or vulnerable in some network environments. It is thus 
+      important to control read access (e.g., via get, get-config, or notification)
+      to these data nodes.</t>
     </section>
     <section anchor="Acknowledgements" title="Acknowledgements" toc="default">
-      <t>Authors would like to thank Derek Yeung, Acee Lindem, Greg Hankins, Hannes Gredler, Uma Chunduri, Jeffrey Zhang, Shradda Hedge, Les Ginsberg for their contributions.</t>
+      <t>Authors would like to thank Derek Yeung, Greg Hankins, Hannes Gredler, Uma Chunduri, Jeffrey Zhang, Shradda Hedge, Les Ginsberg for their contributions.</t>
     </section>
     <section anchor="IANA" title="IANA Considerations" toc="default">
-      <t>TBD.</t>
+      <t>This document registers a URI in the IETF XML registry 
+   <xref target="RFC3688"/>.  Following the format in <xref target="RFC3688"/>, 
+   the following registration is requested to be made:
+   <figure>
+   <artwork>  
+   URI: urn:ietf:params:xml:ns:yang:ietf-segment-routing-commmon
+   Registrant Contact: The IESG.
+   XML: N/A, the requested URI is an XML namespace.
+   </artwork> 
+   </figure>
+   <figure>
+   <artwork>  
+   URI: urn:ietf:params:xml:ns:yang:ietf-segment-routing
+   Registrant Contact: The IESG.
+   XML: N/A, the requested URI is an XML namespace.
+   </artwork> 
+   </figure>
+   </t>
+   <t>This document registers a YANG module in the YANG Module Names
+   registry <xref target="RFC6020"/>.
+   <figure>
+   <artwork>  
+   name: ietf-segment-routing-common
+   namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing-common
+   prefix: sr-cmn
+   reference: RFC XXXX
+   </artwork> 
+   </figure>
+      <figure>
+   <artwork>  
+   name: ietf-segment-routing
+   namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing
+   prefix: sr
+   reference: RFC XXXX
+   </artwork> 
+   </figure>
+    </t>
     </section>
   </middle>
   <back>
     <references title="Normative References">
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
       &RFC2119;
+      &RFC3688;
+      &RFC5246;
       &RFC6020;
+      &RFC6241;
+      &RFC6242;
+      &RFC6536;
       &RFC6991;
       &RFC7950;
+      &RFC8040;
       &RFC8294;
       &RFC8342;
       &RFC8343;

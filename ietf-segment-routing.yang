@@ -58,7 +58,7 @@ module ietf-segment-routing {
 
   reference "RFC XXXX";
 
-  revision 2019-02-28 {
+  revision 2019-07-06 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -142,6 +142,20 @@ module ietf-segment-routing {
       container adjacency-sid {
         description
           "Adjacency SID configuration.";
+        list adj-sids {
+          uses sr-cmn:sid-value-type;
+          leaf value {
+            type uint32;
+            description
+              "Value of the Adj-SID.";
+          }
+          leaf protected {
+            type boolean;
+            default false;
+            description
+              "It is used to protect the mannual adj-SID.";
+          }
+        }
         list advertise-adj-group-sid {
           key "group-id";
           description
