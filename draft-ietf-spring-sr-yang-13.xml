@@ -776,6 +776,7 @@ module ietf-segment-routing {
         description
           "Adjacency SID configuration.";
         list adj-sids {
+          key "value";
           uses sr-cmn:sid-value-type;
           leaf value {
             type uint32;
@@ -788,6 +789,8 @@ module ietf-segment-routing {
             description
               "It is used to protect the mannual adj-SID.";
           }
+          description
+            "List of adj-sid configuration.";
         }
         list advertise-adj-group-sid {
           key "group-id";
