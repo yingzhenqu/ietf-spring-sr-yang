@@ -16,7 +16,7 @@ module ietf-segment-routing-common {
      WG List:  <mailto:spring@ietf.org>
 
      Editor:    Stephane Litkowski
-               <mailto:stephane.litkowski@orange.com>
+               <mailto:slitkows.ietf@gmail.com>
      Editor:    Yingzhen Qu
                <mailto:yingzhen.qu@futurewei.com>
 
@@ -47,7 +47,7 @@ module ietf-segment-routing-common {
 
   reference "RFC XXXX";
 
-  revision 2019-07-06 {
+  revision 2019-11-03 {
     description
       "Initial version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -106,6 +106,12 @@ module ietf-segment-routing-common {
     }
     leaf upper-bound {
         type uint32;
+        must "../lower-bound < ../upper-bound" {
+          error-message
+            "The upper-bound must be larger than the lower-bound.";
+          description
+            "The value MUST be greater than 'lower-bound'.";
+        }
         description
           "Upper value in the label range.";
     }
