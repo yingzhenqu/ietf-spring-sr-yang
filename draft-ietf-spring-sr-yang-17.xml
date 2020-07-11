@@ -48,7 +48,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc docName="draft-ietf-spring-sr-yang-16" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc docName="draft-ietf-spring-sr-yang-17" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -93,16 +93,26 @@
     <workgroup>SPRING Working Group</workgroup>
     <abstract>
       <t>
-          This document defines a YANG data model (<xref target="RFC6020" pageno="false" format="default" />, <xref target="RFC7950" pageno="false" format="default" />) for segment routing (<xref target="RFC8402" pageno="false" format="default" />) configuration and operation.
-          This YANG model is intended to be used on network elements to configure or operate segment routing MPLS data plane <xref target="RFC8660"/>.
-          This document defines also generic containers that SHOULD be reused by IGP protocol modules to support segment routing.
+          This document defines a YANG data model for segment routing 
+          configuration and operation, which is to be augmented by 
+          different segment routing data planes. The document also 
+          defines a YANG model that is intended to be used on network 
+          elements to configure or operate segment routing MPLS data 
+          plane, as well as some generic containers to be reused by 
+          IGP protocol modules to support segment routing.
           </t>
     </abstract>
   </front>
   <middle>
     <section anchor="introduction" title="Introduction" toc="default">
       <t>
-      This document defines a YANG data model for segment routing configuration and operation. 
+          This document defines a YANG data model  
+          <xref target="RFC7950" pageno="false" format="default"/> for 
+          segment routing <xref target="RFC8402" pageno="false" format="default"/> 
+          configuration and operation. The document also 
+          defines a YANG model that is intended to be used on network 
+          elements to configure or operate segment routing MPLS data 
+          plane <xref target="RFC8660"/>
           This document does not define the IGP extensions to support segment routing but defines generic
           groupings that SHOULD be reused by IGP extension modules. The reason of this design choice is to not require implementations to support all IGP extensions. For example, an implementation may support IS-IS extension but not OSPF.
           </t>
@@ -291,15 +301,11 @@ module: ietf-segment-routing-mpls
         <section anchor="adj-cfg" title="Adjacency SID properties" toc="default">
           <section anchor="adj-cfg-bundling" title="Bundling" toc="default">
             <t>
-                                This section is a first proposal on how to use S-bit in Adj-SID to create bundles.
-                                Authors would like to trigger discussion based on this first proposal.
-                                </t>
-            <t>
-                                In case of parallel IP links between routers, an additional Adjacency
-                   SID may be advertised representing more than one adjacency (i.e., 
-                   a bundle of adjacencies). The "advertise-adj-group-sid" configuration 
-                   controls whether or not an additional adjacency SID is advertised.
-                                </t>
+              In case of parallel IP links between routers, an additional Adjacency
+              SID <xref target="RFC8402"/> may be advertised representing more than one adjacency (i.e., 
+              a bundle of adjacencies). The "advertise-adj-group-sid" configuration 
+              controls whether or not an additional adjacency SID is advertised.
+            </t>
             <t>The "advertise-adj-group-sid" would be a list of "group-id".
                                 The "group-id" will permit to identify interfaces that must
                                 be bundled together.</t>
@@ -315,12 +321,12 @@ module: ietf-segment-routing-mpls
                                 </artwork>
             </figure>
             <t>
-                                In the figure above, R1 and R2 are interconnected by four links. A routing protocol adjacency is established on each link.
-                                Operator would like to create segment-routing Adj-SID that represent some bundles of links. We can imagine two different bundles : L1/L2 and L2/L3.
-                                To achieve this behavior, the service provider will configure a "group-id" X for both interfaces L1 and L2 and a "group-id" Y for both interfaces L3 and L3.
-                                This will result in R1 advertising an additional Adj-SID for each adjacency, for example a Adj-SID with S flag set and value of 400 will be added to L1 and L2.
-                                A Adj-SID with S flag set and value of 500 will be added to L3 and L4. As L1/L2 and L3/L4 does not share the same "group-id", a different SID value will be allocated.
-                                </t>
+              In the figure above, R1 and R2 are interconnected by four links. A routing protocol adjacency is established on each link.
+              Operator would like to create segment-routing Adj-SID that represent some bundles of links. We can imagine two different bundles : L1/L2 and L2/L3.
+              To achieve this behavior, the service provider will configure a "group-id" X for both interfaces L1 and L2 and a "group-id" Y for both interfaces L3 and L3.
+              This will result in R1 advertising an additional Adj-SID for each adjacency, for example a Adj-SID with S flag set and value of 400 will be added to L1 and L2.
+              A Adj-SID with S flag set and value of 500 will be added to L3 and L4. As L1/L2 and L3/L4 does not share the same "group-id", a different SID value will be allocated.
+              </t>
           </section>
           <section anchor="adj-cfg-protection" title="Protection" toc="default">
             <t>
@@ -1332,11 +1338,11 @@ module ietf-segment-routing-mpls {
    reference: RFC XXXX
    </artwork> 
    </figure>
-         <figure>
+   <figure>
    <artwork>  
    name: ietf-segment-routing
-   namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing
-   prefix: sr
+   namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls
+   prefix: sr-mpls
    reference: RFC XXXX
    </artwork> 
    </figure>
