@@ -57,7 +57,7 @@ module ietf-segment-routing {
 
   reference "RFC XXXX";
 
-  revision 2020-07-09 {
+  revision 2020-07-24 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";

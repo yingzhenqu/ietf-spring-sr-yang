@@ -75,7 +75,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX";
 
-  revision 2020-07-09 {
+  revision 2020-07-24 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -170,7 +170,8 @@ module ietf-segment-routing-mpls {
       container adjacency-sid {
         description
           "Adjacency SID configuration.";
-          reference "RFC 8660: Segment Routing with the MPLS Data Plane";
+          reference "RFC 8660: Segment Routing with the MPLS 
+                     Data Plane";
         list adj-sids {
           key "value";
           uses sr-cmn:sid-value-type;
@@ -398,6 +399,8 @@ module ietf-segment-routing-mpls {
             type uint8;
             description
               "Algorithm to be used for the prefix SID.";
+            reference "RFC 8665: OSPF Extensions for Segment Routing
+                       RFC 8667: IS-IS Extensions for Segment Routing";
           }
           leaf source {
             type inet:ip-address;
