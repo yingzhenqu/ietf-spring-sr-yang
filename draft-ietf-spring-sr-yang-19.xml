@@ -40,6 +40,10 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8491.xml'>
     <!ENTITY RFC8660 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8660.xml'>
+    <!ENTITY RFC8665 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8665.xml'>
+    <!ENTITY RFC8667 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8667.xml'>
     ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes"?>
@@ -48,7 +52,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc docName="draft-ietf-spring-sr-yang-18" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc docName="draft-ietf-spring-sr-yang-19" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -368,11 +372,12 @@ module: ietf-segment-routing-mpls
       <t>The following RFCs and drafts are not referenced in the document text but
       are referenced in the ietf-segment-rouuting-common.yang and/or ietf-segment-routing.yang 
       module: <xref target="RFC6991"/>, <xref target="RFC8294"/>,
-      <xref target="RFC8476"/>, and <xref target="RFC8491"/>.
+      <xref target="RFC8476"/>, <xref target="RFC8491"/>, <xref target="RFC8665"/>, 
+      and <xref target="RFC8667"/>.
       </t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing@2020-07-24.yang"
+<CODE BEGINS> file "ietf-segment-routing@2020-08-02.yang"
 module ietf-segment-routing {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing";
@@ -432,7 +437,7 @@ module ietf-segment-routing {
 
   reference "RFC XXXX";
 
-  revision 2020-07-24 {
+  revision 2020-08-02 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -452,7 +457,7 @@ module ietf-segment-routing {
   }
 }
 <CODE ENDS>
-<CODE BEGINS> file "ietf-segment-routing-common@2020-07-24.yang"
+<CODE BEGINS> file "ietf-segment-routing-common@2020-08-02.yang"
 module ietf-segment-routing-common {
   yang-version 1.1;
   namespace
@@ -511,7 +516,7 @@ module ietf-segment-routing-common {
 
   reference "RFC XXXX";
 
-  revision 2020-07-24 {
+  revision 2020-08-02 {
     description
       "Initial version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -707,7 +712,7 @@ module ietf-segment-routing-common {
   }
 }
 <CODE ENDS>
-<CODE BEGINS> file "ietf-segment-routing-mpls@2020-07-24.yang"
+<CODE BEGINS> file "ietf-segment-routing-mpls@2020-08-02.yang"
 module ietf-segment-routing-mpls {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls";
@@ -785,7 +790,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX";
 
-  revision 2020-07-24 {
+  revision 2020-08-02 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -847,6 +852,7 @@ module ietf-segment-routing-mpls {
       container bindings {
         description
           "Control of binding advertisement and reception.";
+        if-feature mapping-server;
         container advertise {
           description
             "Control advertisement of local mappings
@@ -895,6 +901,14 @@ module ietf-segment-routing-mpls {
             default false;
             description
               "It is used to protect the manual adj-SID.";
+          }
+          leaf weight {
+            type uint8;
+            description
+              "The load-balancing factor over parallel adjacencies.";
+            reference "RFC 8402: Segment Routing Architecture
+                       RFC 8665: OSPF Extensions for Segment Routing
+                       RFC 8667: IS-IS Extensions for Segment Routing";
           }
           description
             "List of adj-sid configuration.";
@@ -1377,6 +1391,8 @@ module ietf-segment-routing-mpls {
       &RFC8476;
       &RFC8491;
       &RFC8660;
+      &RFC8665;
+      &RFC8667;
     </references>
     <references title="Informative References">
       &RFC8340;
