@@ -54,7 +54,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc docName="draft-ietf-spring-sr-yang-21" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc docName="draft-ietf-spring-sr-yang-22" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -375,23 +375,19 @@ module: ietf-segment-routing-mpls
         </list></t>
     </section>
     <section anchor="yang" title="YANG Modules" toc="default">
-      <t>There are three modules included in this document:
-        <list style="symbols">
-          <t>ietf-segment-routing.yang: This module defines a generic framework
-            for Segment Routing, and it is to be augmented by models for different
-            SR data planes.</t>
-          <t>ietf-segment-routing-common.yang: This module defines a collection
-            of generic types and groupings for SR as defined in <xref target="RFC8402"/>.</t>
-          <t>ietf-segment-routing-mpls.yang: This module defines the configuration 
-            and operation states for Segment Routing MPLS data plane.</t>
-        </list></t>
+      <t>There are three YANG modules included in this document. </t>
       <t>The following RFCs and drafts are not referenced in the document text but
       are referenced in the ietf-segment-routing-common.yang and/or ietf-segment-routing.yang 
       module: <xref target="RFC6991"/>, <xref target="RFC8294"/>,
       <xref target="RFC8476"/>, <xref target="RFC8491"/>, <xref target="RFC8665"/>, 
       and <xref target="RFC8667"/>.
       </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+      <section anchor="sr-yang" title="YANG Module for Segment Routing" toc="default">
+        <t>ietf-segment-routing.yang: This module defines a generic framework
+            for Segment Routing, and it is to be augmented by models for different
+            SR data planes.</t>
+
+        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
 <CODE BEGINS> file "ietf-segment-routing@2020-08-17.yang"
 module ietf-segment-routing {
@@ -473,6 +469,15 @@ module ietf-segment-routing {
   }
 }
 <CODE ENDS>
+  ]]></artwork>
+      </figure>
+      </section>
+      <section anchor="sr-cmn-yang" title="YANG Module for Segment Routing Common Types" toc="default">
+        <t>ietf-segment-routing-common.yang: This module defines a collection
+            of generic types and groupings for SR as defined in <xref target="RFC8402"/>.</t>
+
+      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+        <artwork><![CDATA[
 <CODE BEGINS> file "ietf-segment-routing-common@2020-08-17.yang"
 module ietf-segment-routing-common {
   yang-version 1.1;
@@ -728,6 +733,14 @@ module ietf-segment-routing-common {
   }
 }
 <CODE ENDS>
+  ]]></artwork>
+      </figure>
+      </section>
+      <section anchor="sr-mpls-yang" title="YANG Module for Segment Routing MPLS" toc="default">
+        <t>ietf-segment-routing-mpls.yang: This module defines the configuration 
+            and operation states for Segment Routing MPLS data plane.</t>
+        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+        <artwork><![CDATA[
 <CODE BEGINS> file "ietf-segment-routing-mpls@2020-08-17.yang"
 module ietf-segment-routing-mpls {
   yang-version 1.1;
@@ -1301,6 +1314,7 @@ module ietf-segment-routing-mpls {
 ]]></artwork>
       </figure>
     </section>
+  </section>
     <section anchor="Security" title="Security Considerations" toc="default">
       <t>The YANG modules specified in this document define a schema for 
        data that is designed to be accessed via network
@@ -1328,6 +1342,7 @@ module ietf-segment-routing-mpls {
     </section>
     <section anchor="Acknowledgements" title="Acknowledgements" toc="default">
       <t>Authors would like to thank Derek Yeung, Greg Hankins, Hannes Gredler, Uma Chunduri, Jeffrey Zhang, Shradda Hedge, Les Ginsberg for their contributions.</t>
+      <t>Thanks to Ladislav Lhotka for his thorough reviews and helpful comments.</t>
     </section>
     <section anchor="IANA" title="IANA Considerations" toc="default">
       <t>This document registers a URI in the IETF XML registry 
@@ -1472,7 +1487,7 @@ module ietf-segment-routing-mpls {
 <t>The following is the same example using JSON format.</t>
   <figure>
   <artwork><![CDATA[
-    {
+{
   "ietf-routing:routing": {
     "ietf-segment-routing:segment-routing": {
       "ietf-segment-routing-mpls:sr-mpls": {
