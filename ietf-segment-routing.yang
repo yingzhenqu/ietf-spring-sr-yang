@@ -28,8 +28,8 @@ module ietf-segment-routing {
 
     ";
   description
-    "The YANG module defines a generic framework for Segment 
-     Routing. It is to be augmented by models for different 
+    "The YANG module defines a generic framework for Segment
+     Routing. It is to be augmented by models for different
      SR data planes.
 
      This YANG model conforms to the Network Management
@@ -57,7 +57,7 @@ module ietf-segment-routing {
 
   reference "RFC XXXX";
 
-  revision 2020-08-17 {
+  revision 2020-11-16 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -70,7 +70,7 @@ module ietf-segment-routing {
     container segment-routing {
       description
         "Segment Routing configuration. This container
-         is to be augmented by models for different SR 
+         is to be augmented by models for different SR
          data planes.";
       reference "RFC 8402: Segment Routing Architecture.";
     }

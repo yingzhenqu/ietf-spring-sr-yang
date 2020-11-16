@@ -75,7 +75,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX";
 
-  revision 2020-08-17 {
+  revision 2020-11-16 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -84,14 +84,16 @@ module ietf-segment-routing-mpls {
   feature mapping-server {
     description
       "Support for Segment Routing Mapping Server (SRMS).";
-    reference "RFC 8661: Segment Routing MPLS Interworking with LDP";
+    reference "RFC 8661: Segment Routing MPLS Interworking
+               with LDP";
   }
 
   feature protocol-srgb {
     description
       "Support for per-protocol Segment Routing Global Block
        (SRGB) configuration.";
-       reference "RFC 8660: Segment Routing with the MPLS Data Plane";
+       reference "RFC 8660: Segment Routing with the MPLS
+                  Data Plane";
   }
 
   feature max-sid-depth {
@@ -99,7 +101,7 @@ module ietf-segment-routing-mpls {
       "Support for signaling MSD (Maximum SID Depth) in IGP.";
       reference "RFC 8476: Signaling Maximum SID Depth (MSD)
                  Using OSPF
-                 RFC 8491: Signaling Maximum SID Depth (MSD) 
+                 RFC 8491: Signaling Maximum SID Depth (MSD)
                  Using IS-IS";
   }
 
@@ -122,7 +124,7 @@ module ietf-segment-routing-mpls {
       "OSPF/BGP router-id or ISIS system ID.";
   }
 
-  grouping sr-controlplane {
+  grouping sr-control-plane {
     description
       "Defines protocol configuration.";
     container segment-routing {
@@ -171,7 +173,7 @@ module ietf-segment-routing-mpls {
       container adjacency-sid {
         description
           "Adjacency SID configuration.";
-          reference "RFC 8660: Segment Routing with the MPLS 
+          reference "RFC 8660: Segment Routing with the MPLS
                      Data Plane";
         list adj-sids {
           key "value";
@@ -193,7 +195,8 @@ module ietf-segment-routing-mpls {
               "The load-balancing factor over parallel adjacencies.";
             reference "RFC 8402: Segment Routing Architecture
                        RFC 8665: OSPF Extensions for Segment Routing
-                       RFC 8667: IS-IS Extensions for Segment Routing";
+                       RFC 8667: IS-IS Extensions for Segment 
+                                 Routing";
           }
           description
             "List of adj-sid configuration.";
@@ -409,7 +412,8 @@ module ietf-segment-routing-mpls {
             description
               "Algorithm to be used for the prefix SID.";
             reference "RFC 8665: OSPF Extensions for Segment Routing
-                       RFC 8667: IS-IS Extensions for Segment Routing";
+                       RFC 8667: IS-IS Extensions for Segment 
+                       Routing";
           }
           leaf source {
             type inet:ip-address;
