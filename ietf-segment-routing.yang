@@ -55,7 +55,7 @@ module ietf-segment-routing {
      they appear in all capitals, as shown here.";
 
 
-  reference "RFC XXXX";
+  reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
   revision 2020-11-16 {
     description

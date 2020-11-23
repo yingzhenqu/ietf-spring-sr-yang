@@ -54,7 +54,7 @@ module ietf-segment-routing-common {
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.";
 
-  reference "RFC XXXX";
+  reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
   revision 2020-11-16 {
     description
@@ -100,7 +100,7 @@ module ietf-segment-routing-common {
         type uint32;
         must "../lower-bound < ../upper-bound" {
           error-message
-            "The upper-bound must be larger than the lower-bound.";
+            "The upper-bound must be greater than the lower-bound.";
           description
             "The value must be greater than 'lower-bound'.";
         }

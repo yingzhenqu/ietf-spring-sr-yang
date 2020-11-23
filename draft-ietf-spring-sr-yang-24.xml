@@ -1,0 +1,648 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+    <!ENTITY RFC2119 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+    <!ENTITY RFC3688 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
+    <!ENTITY RFC5246 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml'>
+    <!ENTITY RFC6020 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml'>
+    <!ENTITY RFC6241 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
+    <!ENTITY RFC6242 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml'>
+    <!ENTITY RFC6536 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6536.xml'>
+    <!ENTITY RFC6991 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
+    <!ENTITY RFC7950 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
+    <!ENTITY RFC8040 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'>
+    <!ENTITY RFC8174 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml'>
+    <!ENTITY RFC8294 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8294.xml'>
+    <!ENTITY RFC8340 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'>
+    <!ENTITY RFC8342 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8342.xml'>
+    <!ENTITY RFC8343 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8343.xml'>
+    <!ENTITY RFC8349 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8349.xml'>
+    <!ENTITY RFC8402 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8402.xml'>
+    <!ENTITY RFC8476 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8476.xml'>
+    <!ENTITY RFC8491 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8491.xml'>
+    <!ENTITY RFC8660 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8660.xml'>
+    <!ENTITY RFC8665 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8665.xml'>
+    <!ENTITY RFC8667 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8667.xml'>
+    <!ENTITY RFC8792 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8792.xml'>
+    ]>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<rfc docName="draft-ietf-spring-sr-yang-24" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+  <front>
+    <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
+    <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
+      <organization>Cisco Systems</organization>
+      <address>
+        <email>slitkows.ietf@gmail.com</email>
+      </address>
+    </author>
+    <author fullname="Yingzhen Qu" initials="Y" surname="Qu">
+      <organization>Futurewei</organization>
+      <address>
+        <email>yingzhen.qu@futurewei.com</email>
+      </address>
+    </author>
+    <author fullname="Acee Lindem" initials="A" surname="Lindem">
+      <organization>Cisco Systems</organization>
+      <address>
+        <postal>
+          <street>301 Mindenhall Way</street>
+          <city>Cary</city>
+          <region>NC</region>
+          <code>27513</code>
+          <country>US</country>
+        </postal>
+        <email>acee@cisco.com</email>
+      </address>
+    </author>
+    <author fullname="Pushpasis Sarkar" initials="P" surname="Sarkar">
+      <organization>Individual</organization>
+      <address>
+        <email>pushpasis.ietf@gmail.com</email>
+      </address>
+    </author>
+    <author fullname="Jeff Tantsura" initials="J" surname="Tantsura">
+      <organization>Apstra</organization>
+      <address>
+        <email>jefftant.ietf@gmail.com</email>
+      </address>
+    </author>
+    <date/>
+    <area />
+    <workgroup>SPRING Working Group</workgroup>
+    <abstract>
+      <t>
+          This document defines a YANG data model for segment routing
+          configuration and operation, which is to be augmented by
+          different segment routing data planes. The document also
+          defines a YANG model that is intended to be used on network
+          elements to configure or operate segment routing MPLS data
+          plane, as well as some generic containers to be reused by
+          IGP protocol modules to support segment routing.
+          </t>
+    </abstract>
+  </front>
+  <middle>
+    <section anchor="introduction" title="Introduction" toc="default">
+      <t>
+          This document defines a YANG data model
+          <xref target="RFC7950" pageno="false" format="default"/> for
+          segment routing <xref target="RFC8402" pageno="false" format="default"/>
+          configuration and operation. The document also
+          defines a YANG model that is intended to be used on network
+          elements to configure or operate segment routing MPLS data
+          plane <xref target="RFC8660"/>.
+          This document does not define the IGP extensions to support segment routing but defines generic
+          groupings that SHOULD be reused by IGP extension modules. The reason of this design choice is to not require implementations to support all IGP extensions. For example, an implementation may support IS-IS extension but not OSPF.
+          </t>
+      <t>The YANG modules in this document conform to the Network Management
+        Datastore Architecture (NMDA) <xref target="RFC8342"/>.
+      </t>
+    </section>
+    <section anchor="term" title="Terminology and Notation" toc="default">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+        "MAY", and "OPTIONAL" in this document are to be interpreted as
+        described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
+        when, and only when, they appear in all capitals, as shown here.</t>
+      <section anchor="tree-info" title="Tree diagram" toc="default">
+      <t>Tree diagrams used in this document follow the notation defined in
+      <xref target="RFC8340"/>.</t>
+      </section>
+      <section anchor="sec.prefixes" title="Prefixes in Data Node Names">
+        <t>In this document, names of data nodes, actions, and other
+        data model objects are often used without a prefix, as long as
+        it is clear from the context in which YANG module each name is
+        defined. Otherwise, names are prefixed using the standard prefix
+        associated with the corresponding YANG module, as shown in <xref target="tab.prefixes"/>.</t>
+
+        <texttable anchor="tab.prefixes" title="Prefixes and Corresponding YANG Modules">
+          <ttcol>Prefix</ttcol>
+          <ttcol>YANG module</ttcol>
+          <ttcol>Reference</ttcol>
+          <c>if</c><c>ietf-interfaces</c><c><xref target="RFC8343"/></c>
+          <c>rt</c><c>ietf-routing</c><c><xref target="RFC8349"/></c>
+          <c>rt-types</c><c>ietf-routing-types</c><c><xref target="RFC8294"/></c>
+          <c>yang</c><c>ietf-yang-types</c><c><xref target="RFC6991"/></c>
+          <c>inet</c><c>ietf-inet-types</c><c><xref target="RFC6991"/></c>
+        </texttable>
+      </section>
+    </section>
+    <section anchor="design" title="Design of the Data Model" toc="default">
+      <t>Module ietf-segment-routing augments the routing container in the
+        ietf-routing model <xref target="RFC8349"/>, and defines generic
+        segment routing configuration and operational state. This module is
+        augmented by modules supporting different data planes.</t>
+      <t>Module ietf-segment-routing-mpls augments ietf-segment-routing, and
+        supports SR MPLS data plane configuration and operational state. </t>
+      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+        <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
+module: ietf-segment-routing
+  augment /rt:routing:
+    +--rw segment-routing
+
+module: ietf-segment-routing-mpls
+  augment /rt:routing/sr:segment-routing:
+    +--rw sr-mpls
+       +--ro node-capabilities
+       |  +--ro entropy-readable-label-depth?   uint8
+       +--rw msd {max-sid-depth}?
+       |  +--rw node-msd?   uint8
+       |  +--rw link-msds
+       |     +--rw link-msds* [interface]
+       |        +--rw interface    if:interface-ref
+       |        +--rw msd?         uint8
+       +--rw bindings
+       |  +--rw mapping-server {mapping-server}?
+       |  |  +--rw policy* [name]
+       |  |     +--rw name       string
+       |  |     +--rw entries
+       |  |        +--rw mapping-entry* [prefix algorithm]
+       |  |           +--rw prefix        inet:ip-prefix
+       |  |           +--rw value-type?   enumeration
+       |  |           +--rw start-sid     uint32
+       |  |           +--rw range?        uint32
+       |  |           +--rw algorithm     identityref
+       |  +--rw connected-prefix-sid-map
+       |  |  +--rw connected-prefix-sid* [prefix algorithm]
+       |  |     +--rw prefix               inet:ip-prefix
+       |  |     +--rw value-type?          enumeration
+       |  |     +--rw start-sid            uint32
+       |  |     +--rw range?               uint32
+       |  |     +--rw algorithm            identityref
+       |  |     +--rw last-hop-behavior?   enumeration
+       |  +--rw local-prefix-sid
+       |     +--rw local-prefix-sid* [prefix algorithm]
+       |        +--rw prefix        inet:ip-prefix
+       |        +--rw value-type?   enumeration
+       |        +--rw start-sid     uint32
+       |        +--rw range?        uint32
+       |        +--rw algorithm     identityref
+       +--rw global-srgb
+       |  +--rw srgb* [lower-bound upper-bound]
+       |     +--rw lower-bound    uint32
+       |     +--rw upper-bound    uint32
+       +--rw srlb
+       |  +--rw srlb* [lower-bound upper-bound]
+       |     +--rw lower-bound    uint32
+       |     +--rw upper-bound    uint32
+       +--ro label-blocks* []
+       |  +--ro lower-bound?   uint32
+       |  +--ro upper-bound?   uint32
+       |  +--ro size?          uint32
+       |  +--ro free?          uint32
+       |  +--ro used?          uint32
+       |  +--ro scope?         enumeration
+       +--ro sid-db
+          +--ro sid* [target sid source source-protocol binding-type]
+             +--ro target             string
+             +--ro sid                uint32
+             +--ro algorithm?         uint8
+             +--ro source             inet:ip-address
+             +--ro used?              boolean
+             +--ro source-protocol    -> /rt:routing
+                                         /control-plane-protocols
+                                         /control-plane-protocol/name
+             +--ro binding-type       enumeration
+             +--ro scope?             enumeration
+
+  notifications:
+    +---n segment-routing-global-srgb-collision
+    |  +--ro srgb-collisions* []
+    |     +--ro lower-bound?          uint32
+    |     +--ro upper-bound?          uint32
+    |     +--ro routing-protocol?     -> /rt:routing
+    |                                    /control-plane-protocols
+    |                                    /control-plane-protocol/name
+    |     +--ro originating-rtr-id?   router-or-system-id
+    +---n segment-routing-global-sid-collision
+    |  +--ro received-target?       string
+    |  +--ro new-sid-rtr-id?        router-or-system-id
+    |  +--ro original-target?       string
+    |  +--ro original-sid-rtr-id?   router-or-system-id
+    |  +--ro index?                 uint32
+    |  +--ro routing-protocol?      -> /rt:routing
+    |                                  /control-plane-protocols
+    |                                  /control-plane-protocol/name
+    +---n segment-routing-index-out-of-range
+       +--ro received-target?    string
+       +--ro received-index?     uint32
+       +--ro routing-protocol?   -> /rt:routing
+                                    /control-plane-protocols
+                                    /control-plane-protocol/name
+
+</artwork>
+      </figure>
+    </section>
+    <section anchor="how" title="Configuration" toc="default">
+      <t>
+        The module ietf-segment-routing-mpls augments the "/rt:routing/sr:segment-routing:"
+        with a sr-mpls container. This container defines all the configuration
+        parameters related to segment-routing MPLS data plane.
+        </t>
+      <t>
+        The sr-mpls configuration is split in global configuration and interface configuration.
+        </t>
+      <t>The global configuration includes :
+        <list style="symbols">
+        <t>bindings : Defines prefix to SID mappings. The operator can control
+          advertisement of Prefix-SID independently for IPv4 and IPv6. Two
+          types of mappings are available:
+           <list style="symbols"><t>Mapping-server : maps non local prefixes to a segment ID. Configuration of bindings does not
+           automatically allow advertisement of those
+      bindings.  Advertisement must be controlled by each
+      routing-protocol instance (see <xref target="cp" pageno="false" format="default" />). Multiple mapping policies
+          may be defined.</t><t>Connected prefixes : maps connected prefixes to a segment ID. Advertisement of the mapping
+          will be done by IGP when enabled for segment routing (see <xref target="cp" pageno="false" format="default" />). The SID value can be expressed as an index (default), or an absolute
+           value.  The "last-hop-behavior" configuration dictates the PHP behavior:
+           "explicit-null", "php", or "non-php".</t></list></t><t>SRGB (Segment Routing Global Block): Defines a list of label
+      blocks represented by a pair of lower-bound/upper-bound labels.
+      The SRGB is also agnostic to the control plane used. So all
+      routing-protocol instance will have to advertise the same SRGB.</t><t>SRLB (Segment Routing Local Block): Defines a list of label
+      blocks represented by a pair of lower-bound/upper-bound labels, reserved for local SIDs.</t></list></t>
+    </section>
+    <section anchor="cp" title="IGP Control plane configuration" toc="default">
+      <t>
+    Support of segment-routing extensions for a particular IGP control plane is done by augmenting routing-protocol configuration with segment-routing extensions.
+        This augmentation SHOULD be part of separate YANG modules in order to not create any dependency for implementations to support all protocol extensions.
+        </t>
+      <t>
+        This module defines groupings that SHOULD be used by IGP segment routing modules.
+        </t>
+      <t>The "sr-control-plane" grouping defines the generic global configuration for the IGP.</t>
+      <t>The "enabled" leaf enables segment-routing extensions for the
+   routing-protocol instance.</t>
+      <t>The "bindings" container controls the routing-protocol instance's
+   advertisement of local bindings and the processing of received
+   bindings.</t>
+      <section anchor="igp-interface" title="IGP interface configuration" toc="default">
+        <t>The interface configuration is part of the "igp-interface" grouping and includes Adjacency SID properties.</t>
+        <section anchor="adj-cfg" title="Adjacency SID properties" toc="default">
+          <section anchor="adj-cfg-bundling" title="Bundling" toc="default">
+            <t>
+              In case of parallel IP links between routers, an additional Adjacency
+              SID <xref target="RFC8402"/> may be advertised representing more than one adjacency (i.e.,
+              a bundle of adjacencies). The "advertise-adj-group-sid" configuration
+              controls whether or not an additional adjacency SID is advertised.
+            </t>
+            <t>The "advertise-adj-group-sid" is a list of "group-id".
+               The "group-id" will identify interfaces that are bundled together.</t>
+            <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+              <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
+
+        +-------+                 +------+
+        |       | ------- L1 ---- |      |
+        |   R1  | ------- L2 ---- |  R2  |
+        |       | ------- L3 ---- |      |
+        |       | ------- L4 ---- |      |
+        +-------+                 +------+
+                                </artwork>
+            </figure>
+            <t>
+              In the figure above, R1 and R2 are interconnected by four links. A routing protocol adjacency is established on each link.
+              Operator would like to create segment-routing Adj-SID that represent some bundles of links. We can imagine two different bundles : L1/L2 and L3/L4.
+              To achieve this behavior, the service provider will configure a "group-id" X for both interfaces L1 and L2 and a "group-id" Y for both interfaces L3 and L4.
+              This will result in R1 advertising an additional Adj-SID for each adjacency, for example a Adj-SID with S flag set and value of 400 will be added to L1 and L2.
+              A Adj-SID with S flag set and value of 500 will be added to L3 and L4. As L1/L2 and L3/L4 does not share the same "group-id", a different SID value will be allocated.
+              </t>
+          </section>
+          <section anchor="adj-cfg-protection" title="Protection" toc="default">
+            <t>
+                                The "advertise-protection" defines how protection for an interface
+                   is advertised.  It does not control the activation or deactivation of
+                   protection.  If the "single" option is used, a single Adj-SID will be
+                   advertised for the interface.  If the interface is protected, the
+                   B-Flag for the Adj-SID advertisement will be set. If the "dual"
+                   option is used and if the interface is protected, two Adj-SIDs will
+                   be advertised for the interface adjacencies. One Adj-SID will always
+                   have the B-Flag set and the other will have the B-Flag clear.  This
+                   option is intended to be used in the case of traffic engineering
+                   where a path must use either protected segments or non-protected
+                   segments.
+                                </t>
+          </section>
+        </section>
+      </section>
+    </section>
+    <section anchor="states" title="State Data" toc="default">
+      <t>
+        The operational states contain information reflecting the usage of
+   allocated SRGB labels.
+        </t>
+      <t>It also includes a list of all global SIDs, their associated
+   bindings, and other information such as the source protocol and
+   algorithm.</t>
+    </section>
+    <section anchor="notif" title="Notifications" toc="default">
+      <t>
+        The model defines the following notifications for segment-routing.
+        <list style="symbols">
+          <t>segment-routing-global-srgb-collision: Raised when a control plane
+      advertised SRGB blocks have conflicts. </t>
+          <t>segment-routing-global-sid-collision: Raised when a control plane
+      advertised index is already associated with another target (in
+      this version, the only defined targets are IPv4 and IPv6 prefixes). </t>
+          <t>segment-routing-index-out-of-range: Raised when a control plane
+      advertised index falls outside the range of SRGBs configured for
+      the network device.</t>
+        </list></t>
+    </section>
+    <section anchor="yang" title="YANG Modules" toc="default">
+      <t>There are three YANG modules included in this document. </t>
+      <t>The following RFCs and drafts are not referenced in the document text but
+      are referenced in the ietf-segment-routing-common.yang and/or ietf-segment-routing.yang
+      module: <xref target="RFC6991"/>, <xref target="RFC8294"/>,
+      <xref target="RFC8476"/>, <xref target="RFC8491"/>, <xref target="RFC8665"/>,
+      and <xref target="RFC8667"/>.
+      </t>
+      <section anchor="sr-yang" title="YANG Module for Segment Routing" toc="default">
+        <t>ietf-segment-routing.yang: This module defines a generic framework
+            for Segment Routing, and it is to be augmented by models for different
+            SR data planes.</t>
+
+        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+        <artwork><![CDATA[
+<CODE BEGINS> file "ietf-segment-routing@2020-11-16.yang"
+CODE ENDS>
+  ]]></artwork>
+      </figure>
+      </section>
+      <section anchor="sr-cmn-yang" title="YANG Module for Segment Routing Common Types" toc="default">
+        <t>ietf-segment-routing-common.yang: This module defines a collection
+            of generic types and groupings for SR as defined in <xref target="RFC8402"/>.</t>
+
+      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+        <artwork><![CDATA[
+<CODE BEGINS> file "ietf-segment-routing-common@2020-08-17.yang"
+CODE ENDS>
+  ]]></artwork>
+      </figure>
+      </section>
+      <section anchor="sr-mpls-yang" title="YANG Module for Segment Routing MPLS" toc="default">
+        <t>ietf-segment-routing-mpls.yang: This module defines the configuration
+            and operational states for Segment Routing MPLS data plane.</t>
+        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
+        <artwork><![CDATA[
+<CODE BEGINS> file "ietf-segment-routing-mpls@2020-11-16.yang"
+CODE ENDS>
+]]></artwork>
+      </figure>
+    </section>
+  </section>
+    <section anchor="Security" title="Security Considerations" toc="default">
+      <t>The YANG modules specified in this document define a schema for
+       data that is designed to be accessed via network
+       management protocols such as NETCONF <xref target="RFC6241"/> or
+       RESTCONF <xref target="RFC8040"/>. The lowest NETCONF layer is the secure transport
+       layer, and the mandatory-to-implement secure transport is Secure Shell (SSH)
+       <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
+       mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>.</t>
+
+      <t>The NETCONF access control model <xref target="RFC6536"/> provides the
+      means to restrict access for particular NETCONF or RESTCONF users to a
+      pre-configured subset of all available NETCONF or RESTCONF protocol
+      operations and content.</t>
+
+      <t>There are a number of data nodes defined in the modules
+      that are writable/creatable/deletable (i.e., config true, which is the default).
+      These data nodes may be considered sensitive or vulnerable in some network
+      environments. Write operations (e.g., edit-config) to these data nodes without
+      proper protection can have a negative effect on network operations. </t>
+
+      <t>Some of the readable data nodes in the modules
+      may be considered sensitive or vulnerable in some network environments. It is thus
+      important to control read access (e.g., via get, get-config, or notification)
+      to these data nodes.</t>
+    </section>
+    <section anchor="Acknowledgements" title="Acknowledgements" toc="default">
+      <t>The authors would like to thank Derek Yeung, Greg Hankins, Hannes Gredler, Uma Chunduri, Jeffrey Zhang, Shradda Hedge, Les Ginsberg for their contributions.</t>
+      <t>Thanks to Ladislav Lhotka and Tom Petch for their thorough reviews and helpful comments.</t>
+    </section>
+    <section anchor="IANA" title="IANA Considerations" toc="default">
+      <t>This document registers a URI in the IETF XML registry
+   <xref target="RFC3688"/>.  Following the format in <xref target="RFC3688"/>,
+   the following registration is requested to be made:
+   <figure>
+   <artwork>
+   URI: urn:ietf:params:xml:ns:yang:ietf-segment-routing-commmon
+   Registrant Contact: The IESG.
+   XML: N/A, the requested URI is an XML namespace.
+   </artwork>
+   </figure>
+   <figure>
+   <artwork>
+   URI: urn:ietf:params:xml:ns:yang:ietf-segment-routing
+   Registrant Contact: The IESG.
+   XML: N/A, the requested URI is an XML namespace.
+   </artwork>
+   </figure>
+   <figure>
+   <artwork>
+   URI: urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls
+   Registrant Contact: The IESG.
+   XML: N/A, the requested URI is an XML namespace.
+   </artwork>
+   </figure>
+   </t>
+   <t>This document registers a YANG module in the YANG Module Names
+   registry <xref target="RFC6020"/>.
+   <figure>
+   <artwork>
+   name: ietf-segment-routing-common
+   namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing-common
+   prefix: sr-cmn
+   reference: RFC XXXX
+   </artwork>
+   </figure>
+   <figure>
+   <artwork>
+   name: ietf-segment-routing
+   namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing
+   prefix: sr
+   reference: RFC XXXX
+   </artwork>
+   </figure>
+   <figure>
+   <artwork>
+   name: ietf-segment-routing
+   namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls
+   prefix: sr-mpls
+   reference: RFC XXXX
+   </artwork>
+   </figure>
+    </t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+      &RFC2119;
+      &RFC3688;
+      &RFC5246;
+      &RFC6020;
+      &RFC6241;
+      &RFC6242;
+      &RFC6536;
+      &RFC6991;
+      &RFC7950;
+      &RFC8040;
+      &RFC8174;
+      &RFC8294;
+      &RFC8342;
+      &RFC8343;
+      &RFC8349;
+      &RFC8402;
+      &RFC8476;
+      &RFC8491;
+      &RFC8660;
+      &RFC8665;
+      &RFC8667;
+    </references>
+    <references title="Informative References">
+      &RFC8340;
+      &RFC8792;
+    </references>
+    <section anchor="examples" title="Configuration example">
+      <t>Note: '\' line wrapping per <xref target="RFC8792"/>. </t>
+      <t>The following is an XML example using the SR MPLS YANG modules.</t>
+
+  <figure>
+  <artwork><![CDATA[
+<routing xmlns="urn:ietf:params:xml:ns:yang:ietf-routing">
+  <segment-routing
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-segment-routing">
+    <sr-mpls
+      xmlns="urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls">
+      <msd>
+        <node-msd>5</node-msd>
+      </msd>
+      <bindings>
+        <mapping-server>
+          <policy>
+            <name>mapping 1</name>
+            <entries>
+              <mapping-entry>
+                <prefix>198.51.100.0/24</prefix>
+                <algorithm xmlns:sr-cmn="urn:ietf:params:xml:ns:yang\
+                  :ietf-segment-routing-common">\
+                  sr-cmn:prefix-sid-algorithm-shortest-path\
+                </algorithm>
+                <start-sid>200</start-sid>
+                <range>100</range>
+              </mapping-entry>
+            </entries>
+          </policy>
+        </mapping-server>
+        <connected-prefix-sid-map>
+          <connected-prefix-sid>
+            <prefix>192.0.2.0/24</prefix>
+            <algorithm xmlns:sr-cmn="urn:ietf:params:xml:ns:yang:\
+              ietf-segment-routing-common">\
+              sr-cmn:prefix-sid-algorithm-strict-spf</algorithm>
+            <start-sid>100</start-sid>
+            <range>1</range>
+            <last-hop-behavior>php</last-hop-behavior>
+          </connected-prefix-sid>
+        </connected-prefix-sid-map>
+      </bindings>
+      <global-srgb>
+        <srgb>
+          <lower-bound>45000</lower-bound>
+          <upper-bound>55000</upper-bound>
+        </srgb>
+      </global-srgb>
+    </sr-mpls>
+  </segment-routing>
+</routing>
+     ]]>
+  </artwork>
+</figure>
+<t>The following is the same example using JSON format.</t>
+  <figure>
+  <artwork><![CDATA[
+{
+  "ietf-routing:routing": {
+    "ietf-segment-routing:segment-routing": {
+      "ietf-segment-routing-mpls:sr-mpls": {
+        "msd": {
+          "node-msd": 5
+        },
+        "bindings": {
+          "mapping-server": {
+            "policy": [
+              {
+                "name": "mapping 1",
+                "entries": {
+                  "mapping-entry": [
+                    {
+                      "prefix": "198.51.100.0/24",
+                      "algorithm": "ietf-segment-routing-common:\
+                      prefix-sid-algorithm-shortest-path",
+                      "start-sid": 200,
+                      "range": 100
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connected-prefix-sid-map": {
+            "connected-prefix-sid": [
+              {
+                "prefix": "192.0.2.0/24",
+                "algorithm": "ietf-segment-routing-common:\
+                prefix-sid-algorithm-strict-spf",
+                "start-sid": 100,
+                "range": 1,
+                "last-hop-behavior": "php"
+              }
+            ]
+          }
+        },
+        "global-srgb": {
+          "srgb": [
+            {
+              "lower-bound": 45000,
+              "upper-bound": 55000
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+         ]]>
+  </artwork>
+</figure>
+
+</section>
+  </back>
+</rfc>

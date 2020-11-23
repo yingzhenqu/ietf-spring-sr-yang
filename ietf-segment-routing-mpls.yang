@@ -24,9 +24,11 @@ module ietf-segment-routing-mpls {
   }
   import ietf-segment-routing {
     prefix sr;
+    reference "RFC XXXX: YANG Data Model for Segment Routing.";
   }
   import ietf-segment-routing-common {
     prefix sr-cmn;
+    reference "RFC XXXX: YANG Data Model for Segment Routing.";
   }
 
   organization
@@ -73,7 +75,7 @@ module ietf-segment-routing-mpls {
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.";
 
-  reference "RFC XXXX";
+  reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
   revision 2020-11-16 {
     description
@@ -115,10 +117,10 @@ module ietf-segment-routing-mpls {
        An example system-id is 0143.0438.AEF0";
   }
 
-  typedef router-id {
+  typedef router-or-system-id {
     type union {
-      type system-id;
       type rt-types:router-id;
+      type system-id;
     }
     description
       "OSPF/BGP router-id or ISIS system ID.";
@@ -246,7 +248,7 @@ module ietf-segment-routing-mpls {
       description
         "Node MSD is the lowest MSD supported by the node.";
     }
-    container link-msd {
+    container link-msds {
       description
         "MSD supported by an individual interface.";
       list link-msds {
@@ -423,7 +425,7 @@ module ietf-segment-routing-mpls {
           leaf used {
             type boolean;
             description
-              "Indicates if the binding is install in the
+              "Indicates if the binding is installed in the
                forwarding plane.";
           }
           leaf source-protocol {
@@ -470,10 +472,10 @@ module ietf-segment-routing-mpls {
   notification segment-routing-global-srgb-collision {
     description
       "This notification is sent when SRGB blocks received from
-       routers conflict.";
+       routers collide.";
     list srgb-collisions {
       description
-        "List of SRGB blocks that conflict.";
+        "List of SRGB blocks that collide.";
       leaf lower-bound {
         type uint32;
         description
@@ -493,7 +495,7 @@ module ietf-segment-routing-mpls {
           "Routing protocol reference for SRGB collision.";
       }
       leaf originating-rtr-id {
-        type router-id;
+        type router-or-system-id;
         description
           "Originating Router ID of this SRGB block.";
       }
@@ -502,7 +504,7 @@ module ietf-segment-routing-mpls {
   notification segment-routing-global-sid-collision {
     description
       "This notification is sent when a new mapping is learned
-       containing s mapping where the SID is already used.
+       containing a mapping where the SID is already used.
        The notification generation must be throttled with at least
        a 5 second gap between notifications.";
     leaf received-target {
@@ -512,9 +514,9 @@ module ietf-segment-routing-mpls {
          the SID collision.";
     }
     leaf new-sid-rtr-id {
-      type router-id;
+      type router-or-system-id;
       description
-        "Router ID that advertised the conflicting SID.";
+        "Router ID that advertised the colliding SID.";
     }
     leaf original-target {
       type string;
@@ -523,10 +525,10 @@ module ietf-segment-routing-mpls {
          as the received target.";
     }
     leaf original-sid-rtr-id {
-      type router-id;
+      type router-or-system-id;
       description
         "Router-ID for the router that originally advertised the
-         conflicting SID, i.e., the instance in the database.";
+         conlliding SID, i.e., the instance in the database.";
     }
     leaf index {
       type uint32;
@@ -539,7 +541,7 @@ module ietf-segment-routing-mpls {
            + "rt:control-plane-protocol/rt:name";
       }
       description
-        "Routing protocol reference for conflicting SID.";
+        "Routing protocol reference for colliding SID.";
     }
   }
   notification segment-routing-index-out-of-range {
