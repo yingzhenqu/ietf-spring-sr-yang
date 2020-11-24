@@ -530,9 +530,10 @@ CODE ENDS>
       &RFC8340;
       &RFC8792;
     </references>
-    <section anchor="examples" title="Configuration example">
+    <section anchor="examples" title="Configuration examples">
       <t>Note: '\' line wrapping per <xref target="RFC8792"/>. </t>
-      <t>The following is an XML example using the SR MPLS YANG modules.</t>
+      <section anchor="ipv4" title="SR MPLS with IPv4">
+      <t>The following is an XML example using the SR MPLS YANG modules with IPv4 addresses.</t>
 
   <figure>
   <artwork><![CDATA[
@@ -642,7 +643,119 @@ CODE ENDS>
          ]]>
   </artwork>
 </figure>
+</section>
+      <section anchor="ipv6" title="SR MPLS with IPv6">
+      <t>The following is an XML example using the SR MPLS YANG modules with IPv6 addresses.</t>
 
+  <figure>
+  <artwork><![CDATA[
+<routing xmlns="urn:ietf:params:xml:ns:yang:ietf-routing">
+  <segment-routing
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-segment-routing">
+    <sr-mpls
+      xmlns="urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls">
+      <msd>
+        <node-msd>5</node-msd>
+      </msd>
+      <bindings>
+        <mapping-server>
+          <policy>
+            <name>mapping 1</name>
+            <entries>
+              <mapping-entry>
+                <prefix>2001:db8:aaaa:bbbb::/64</prefix>
+                <algorithm xmlns:sr-cmn="urn:ietf:params:xml:ns:yang\
+                  :ietf-segment-routing-common">\
+                  sr-cmn:prefix-sid-algorithm-shortest-path\
+                </algorithm>
+                <start-sid>200</start-sid>
+                <range>100</range>
+              </mapping-entry>
+            </entries>
+          </policy>
+        </mapping-server>
+        <connected-prefix-sid-map>
+          <connected-prefix-sid>
+            <prefix>2001:db8:aaaa:cccc::/64</prefix>
+            <algorithm xmlns:sr-cmn="urn:ietf:params:xml:ns:yang:\
+              ietf-segment-routing-common">\
+              sr-cmn:prefix-sid-algorithm-strict-spf</algorithm>
+            <start-sid>100</start-sid>
+            <range>1</range>
+            <last-hop-behavior>php</last-hop-behavior>
+          </connected-prefix-sid>
+        </connected-prefix-sid-map>
+      </bindings>
+      <global-srgb>
+        <srgb>
+          <lower-bound>45000</lower-bound>
+          <upper-bound>55000</upper-bound>
+        </srgb>
+      </global-srgb>
+    </sr-mpls>
+  </segment-routing>
+</routing>
+     ]]>
+  </artwork>
+</figure>
+<t>The following is the same example using JSON format.</t>
+  <figure>
+  <artwork><![CDATA[
+{
+  "ietf-routing:routing": {
+    "ietf-segment-routing:segment-routing": {
+      "ietf-segment-routing-mpls:sr-mpls": {
+        "msd": {
+          "node-msd": 5
+        },
+        "bindings": {
+          "mapping-server": {
+            "policy": [
+              {
+                "name": "mapping 1",
+                "entries": {
+                  "mapping-entry": [
+                    {
+                      "prefix": "2001:db8:aaaa:bbbb::/64",
+                      "algorithm": "ietf-segment-routing-common:\
+                      prefix-sid-algorithm-shortest-path",
+                      "start-sid": 200,
+                      "range": 100
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connected-prefix-sid-map": {
+            "connected-prefix-sid": [
+              {
+                "prefix": "2001:db8:aaaa:cccc::/64",
+                "algorithm": "ietf-segment-routing-common:\
+                prefix-sid-algorithm-strict-spf",
+                "start-sid": 100,
+                "range": 1,
+                "last-hop-behavior": "php"
+              }
+            ]
+          }
+        },
+        "global-srgb": {
+          "srgb": [
+            {
+              "lower-bound": 45000,
+              "upper-bound": 55000
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+         ]]>
+  </artwork>
+</figure>
+</section>
 </section>
   </back>
 </rfc>

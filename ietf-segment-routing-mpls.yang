@@ -189,7 +189,8 @@ module ietf-segment-routing-mpls {
             type boolean;
             default false;
             description
-              "It is used to protect the manual adj-SID.";
+              "It is used to protect the manual adj-SID, e.g. using
+               IPFRR or MPLS-FRR.";
           }
           leaf weight {
             type uint8;
@@ -206,8 +207,12 @@ module ietf-segment-routing-mpls {
         list advertise-adj-group-sid {
           key "group-id";
           description
-            "Control advertisement of S flag. Enable advertisement
+            "Control advertisement of S or G flag. Enable advertisement
              of a common Adj-SID for parallel links.";
+          reference "RFC 8665: OSPF Extensions for Segment Routing 
+                     Section 6.1
+                     RFC 8667: IS-IS Extensions for Segment 
+                               Routing Section 2.2.1";
           leaf group-id {
             type uint32;
             description
@@ -235,6 +240,10 @@ module ietf-segment-routing-mpls {
           }
           description
             "If set, the Adj-SID refers to a protected adjacency.";
+          reference "RFC 8665: OSPF Extensions for Segment Routing 
+                     Section 6.1
+                     RFC 8667: IS-IS Extensions for Segment 
+                               Routing Section 2.2.1";
         }
       }
     }
