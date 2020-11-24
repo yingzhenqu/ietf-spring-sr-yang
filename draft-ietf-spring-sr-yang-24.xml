@@ -483,7 +483,7 @@ CODE ENDS>
    </figure>
    <figure>
    <artwork>
-   name: ietf-segment-routing
+   name: ietf-segment-routing-mpls
    namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing
    prefix: sr
    reference: RFC XXXX
