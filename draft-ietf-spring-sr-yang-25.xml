@@ -54,7 +54,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc docName="draft-ietf-spring-sr-yang-24" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc docName="draft-ietf-spring-sr-yang-25" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -1397,7 +1397,7 @@ module ietf-segment-routing-mpls {
    </figure>
    <figure>
    <artwork>
-   name: ietf-segment-routing-mpls
+   name: ietf-segment-routing
    namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing
    prefix: sr
    reference: RFC XXXX
@@ -1405,7 +1405,7 @@ module ietf-segment-routing-mpls {
    </figure>
    <figure>
    <artwork>
-   name: ietf-segment-routing
+   name: ietf-segment-routing-mpls
    namespace: urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls
    prefix: sr-mpls
    reference: RFC XXXX
