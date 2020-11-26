@@ -77,7 +77,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-11-24 {
+  revision 2020-11-25 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -136,7 +136,8 @@ module ietf-segment-routing-mpls {
         type boolean;
         default "false";
         description
-          "Enables segment-routing protocol extensions.";
+          "Enables segment-routing control-plane protocol
+          extensions.";
       }
       container bindings {
         if-feature mapping-server;
@@ -198,7 +199,7 @@ module ietf-segment-routing-mpls {
               "The load-balancing factor over parallel adjacencies.";
             reference "RFC 8402: Segment Routing Architecture
                        RFC 8665: OSPF Extensions for Segment Routing
-                       RFC 8667: IS-IS Extensions for Segment 
+                       RFC 8667: IS-IS Extensions for Segment
                                  Routing";
           }
           description
@@ -207,18 +208,19 @@ module ietf-segment-routing-mpls {
         list advertise-adj-group-sid {
           key "group-id";
           description
-            "Control advertisement of S or G flag. Enable advertisement
-             of a common Adj-SID for parallel links.";
-          reference "RFC 8665: OSPF Extensions for Segment Routing 
+            "Control advertisement of S or G flag. Enable
+             advertisement of a common Adj-SID for parallel
+             links.";
+          reference "RFC 8665: OSPF Extensions for Segment Routing
                      Section 6.1
-                     RFC 8667: IS-IS Extensions for Segment 
+                     RFC 8667: IS-IS Extensions for Segment
                                Routing Section 2.2.1";
           leaf group-id {
             type uint32;
             description
               "The value is an internal value to identify a
-               group-ID. Interfaces with the same group-ID will be
-               bundled together.";
+               group-ID. Interfaces with the same group-ID
+               will be bundled together.";
           }
         }
         leaf advertise-protection {
@@ -240,9 +242,9 @@ module ietf-segment-routing-mpls {
           }
           description
             "If set, the Adj-SID refers to a protected adjacency.";
-          reference "RFC 8665: OSPF Extensions for Segment Routing 
+          reference "RFC 8665: OSPF Extensions for Segment Routing
                      Section 6.1
-                     RFC 8667: IS-IS Extensions for Segment 
+                     RFC 8667: IS-IS Extensions for Segment
                                Routing Section 2.2.1";
         }
       }
@@ -251,7 +253,7 @@ module ietf-segment-routing-mpls {
 
   grouping max-sid-depth {
     description
-      "Maximum SID Depth (MSD)D configuration grouping.";
+      "Maximum SID Depth (MSD) configuration grouping.";
     leaf node-msd {
       type uint8;
       description
@@ -423,7 +425,7 @@ module ietf-segment-routing-mpls {
             description
               "Algorithm to be used for the prefix SID.";
             reference "RFC 8665: OSPF Extensions for Segment Routing
-                       RFC 8667: IS-IS Extensions for Segment 
+                       RFC 8667: IS-IS Extensions for Segment
                        Routing";
           }
           leaf source {
