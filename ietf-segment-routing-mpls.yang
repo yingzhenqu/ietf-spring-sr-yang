@@ -77,7 +77,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-11-27 {
+  revision 2020-11-28 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -256,7 +256,7 @@ module ietf-segment-routing-mpls {
 
   grouping max-sid-depth {
     description
-      "Maximum SID Depth (MSD) configuration grouping.";
+      "Maximum SID Depth (MSD) operational state grouping.";
     leaf node-msd {
       type uint8;
       description
@@ -289,12 +289,14 @@ module ietf-segment-routing-mpls {
        with Segment Routing (SR).";
     container sr-mpls {
       description
-        "Segment Routing global configuration.";
+        "Segment Routing global configuration and
+         operational state.";
       uses sr-cmn:node-capabilities;
       container msd {
         if-feature "max-sid-depth";
+        config false;
         description
-          "MSD configuration.";
+          "Maximum Segment Depth (MSD) Operational State.";
         uses max-sid-depth;
       }
       container bindings {
