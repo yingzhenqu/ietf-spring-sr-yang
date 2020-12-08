@@ -58,7 +58,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc docName="draft-ietf-spring-sr-yang-28" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc docName="draft-ietf-spring-sr-yang-29" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -166,6 +166,8 @@
         augmented by modules supporting different data planes.</t>
       <t>Module ietf-segment-routing-mpls augments ietf-segment-routing, and
         supports SR MPLS data plane configuration and operational state. </t>
+      <t>Module ietf-segment-routing-common defines generic types and groupings 
+        that SHOULD be reused by IGP extension modules.</t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
 module: ietf-segment-routing
@@ -394,7 +396,7 @@ module: ietf-segment-routing-mpls
 
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing@2020-11-27.yang"
+<CODE BEGINS> file "ietf-segment-routing@2020-12-08.yang"
 module ietf-segment-routing {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing";
@@ -454,7 +456,7 @@ module ietf-segment-routing {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-11-27 {
+  revision 2020-12-08 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -483,7 +485,7 @@ module ietf-segment-routing {
 
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing-common@2020-11-27.yang"
+<CODE BEGINS> file "ietf-segment-routing-common@2020-12-08.yang"
 module ietf-segment-routing-common {
   yang-version 1.1;
   namespace
@@ -542,7 +544,7 @@ module ietf-segment-routing-common {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-11-27 {
+  revision 2020-12-08 {
     description
       "Initial version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -746,7 +748,7 @@ module ietf-segment-routing-common {
             and operational states for Segment Routing MPLS data plane.</t>
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing-mpls@2020-11-28
+<CODE BEGINS> file "ietf-segment-routing-mpls@2020-12-08
 module ietf-segment-routing-mpls {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls";
@@ -826,7 +828,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-11-28 {
+  revision 2020-12-08 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -1035,7 +1037,7 @@ module ietf-segment-routing-mpls {
   augment "/rt:routing/sr:segment-routing" {
     description
       "This augments routing data model (RFC 8349)
-       with Segment Routing (SR).";
+       with Segment Routing (SR) with the MPLS Data Plane.";
     container sr-mpls {
       description
         "Segment Routing global configuration and

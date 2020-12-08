@@ -77,7 +77,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-11-28 {
+  revision 2020-12-08 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -286,7 +286,7 @@ module ietf-segment-routing-mpls {
   augment "/rt:routing/sr:segment-routing" {
     description
       "This augments routing data model (RFC 8349)
-       with Segment Routing (SR).";
+       with Segment Routing (SR) with the MPLS Data Plane.";
     container sr-mpls {
       description
         "Segment Routing global configuration and
