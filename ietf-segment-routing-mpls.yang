@@ -51,7 +51,7 @@ module ietf-segment-routing-mpls {
     ";
   description
     "The YANG module defines a generic configuration model for
-     Segment Routing MPLS data plane.
+     the Segment Routing MPLS data plane.
 
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8242.
@@ -100,7 +100,9 @@ module ietf-segment-routing-mpls {
 
   feature max-sid-depth {
     description
-      "Support for signaling MSD (Maximum SID Depth) in IGP.";
+      "Support for signaling MSD (Maximum SID Depth) in OSPF,
+       IS-IS, or BGP. Feature support indicates signaling in
+       at least one of these protocols.";
       reference "RFC 8476: Signaling Maximum SID Depth (MSD)
                            Using OSPF
                  RFC 8491: Signaling Maximum SID Depth (MSD)
@@ -236,11 +238,12 @@ module ietf-segment-routing-mpls {
             enum "dual" {
               description
                 "Two Adj-SIDs will be associated with the adjacency
-                 if the interface is protected. In this case, will
-                 be advertised with backup flag set, the other will
-                 be advertised with the backup flag clear. In case
-                 protection is not configured, single Adj-SID will
-                 be advertised with the backup flag clear.";
+                 if the interface is protected. In this case, one
+                 Adj-SID will be advertised with the backup-flag set
+                 and the other with the backup-flag clear. In the
+                 case where protection is not configured, a single
+                 Adj-SID will be advertised with the backup-flag
+                 clear.";
             }
           }
           description
@@ -260,7 +263,8 @@ module ietf-segment-routing-mpls {
     leaf node-msd {
       type uint8;
       description
-        "Node MSD is the lowest MSD supported by the node.";
+        "Node MSD is the smallest link MSD supported by
+         the node.";
     }
     container link-msds {
       description
@@ -350,7 +354,7 @@ module ietf-segment-routing-mpls {
           }
         }
       }
-      container global-srgb {
+      container srgb {
         description
           "Global SRGB configuration.";
         uses sr-cmn:srgb;
@@ -487,7 +491,7 @@ module ietf-segment-routing-mpls {
     }
   }
 
-  notification segment-routing-global-srgb-collision {
+  notification segment-routing-srgb-collision {
     description
       "This notification is sent when SRGB blocks received from
        routers collide.";
@@ -572,8 +576,9 @@ module ietf-segment-routing-mpls {
     leaf received-target {
       type string;
       description
-        "Target received in the router advertisement with
-         the out-of-range index.";
+        "A human-readable string representing the target
+         received in the protocol-specific advertisement
+         corresponding to the out-of-range index.";
     }
     leaf received-index {
       type uint32;
