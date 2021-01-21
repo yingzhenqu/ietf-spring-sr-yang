@@ -50,6 +50,8 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8792.xml'>
     <!ENTITY RFC8814 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8814.xml'>
+    <!ENTITY RFC8846 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8846.xml'>
     ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes"?>
@@ -287,7 +289,7 @@ module: ietf-segment-routing-mpls
       routing-protocol instance (see <xref target="cp" pageno="false" format="default" />). Multiple mapping policies
           may be defined.</t><t>Connected prefixes : maps connected prefixes to a segment ID. Advertisement of the mapping
           will be done by IGP when enabled for segment routing (see <xref target="cp" pageno="false" format="default" />). The SID value can be expressed as an index (default), or an absolute
-           value.  The "last-hop-behavior" configuration dictates the PHP behavior:
+           value.  The "last-hop-behavior" configuration dictates the MPLS PHP behavior:
            "explicit-null", "php", or "non-php".</t></list></t><t>SRGB (Segment Routing Global Block): Defines a list of label
       blocks represented by a pair of lower-bound/upper-bound labels.
       The SRGB is also agnostic to the control plane used. So all
@@ -608,12 +610,12 @@ module ietf-segment-routing-common {
         }
         enum "no-php" {
           description
-            "Do not use Penultimate Hop Popping (PHP)
+            "Do not use MPLS Penultimate Hop Popping (PHP)
              for the SID.";
         }
         enum "php" {
           description
-            "Use PHP for the SID.";
+            "Use MPLS PHP for the SID.";
         }
       }
       description
@@ -1280,7 +1282,8 @@ module ietf-segment-routing-mpls {
        RESTCONF <xref target="RFC8040"/>. The lowest NETCONF layer is the secure transport
        layer, and the mandatory-to-implement secure transport is Secure Shell (SSH)
        <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
-       mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>.</t>
+       mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>
+       <xref target="RFC8846"/>.</t>
 
       <t>The NETCONF access control model <xref target="RFC6536"/> provides the
       means to restrict access for particular NETCONF or RESTCONF users to a
@@ -1419,6 +1422,7 @@ module ietf-segment-routing-mpls {
       &RFC8667;
       &RFC8669;
       &RFC8814;
+      &RFC8846;
     </references>
     <references title="Informative References">
       &RFC8340;

@@ -198,12 +198,12 @@ module ietf-segment-routing-common {
         }
         enum "no-php" {
           description
-            "Do not use Penultimate Hop Popping (PHP)
+            "Do not use MPLS Penultimate Hop Popping (PHP)
              for the SID.";
         }
         enum "php" {
           description
-            "Use PHP for the SID.";
+            "Use MPLS PHP for the SID.";
         }
       }
       description
