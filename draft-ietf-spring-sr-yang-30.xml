@@ -12,8 +12,6 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
     <!ENTITY RFC6242 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml'>
-    <!ENTITY RFC6536 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6536.xml'>
     <!ENTITY RFC6991 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
     <!ENTITY RFC7950 PUBLIC ''
@@ -26,6 +24,8 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8294.xml'>
     <!ENTITY RFC8340 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'>
+    <!ENTITY RFC8341 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'>
     <!ENTITY RFC8342 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8342.xml'>
     <!ENTITY RFC8343 PUBLIC ''
@@ -1285,7 +1285,7 @@ module ietf-segment-routing-mpls {
        mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>
        <xref target="RFC8846"/>.</t>
 
-      <t>The NETCONF access control model <xref target="RFC6536"/> provides the
+      <t>The NETCONF access control model <xref target="RFC8341"/> provides the
       means to restrict access for particular NETCONF or RESTCONF users to a
       pre-configured subset of all available NETCONF or RESTCONF protocol
       operations and content.</t>
@@ -1314,16 +1314,16 @@ module ietf-segment-routing-mpls {
       <t>Some of the readable data nodes in the modules
       may be considered sensitive or vulnerable in some network environments. It is thus
       important to control read access (e.g., via get, get-config, or notification)
-      to these data nodes. The exposure of both local bindings and SID database
-      will exposure segment routing paths that may be attacked. These
-      correspond to the following schema nodes:
+      to these data nodes. The exposure of either the local bindings or SID database would
+      provide an attacker the segment routing paths and related topology information.
+      These correspond to the following schema nodes:
       <list style="empty">
 	<t>/segment-routing/mpls/bindings - Knowledge of these data nodes can be used to
-	attack the local router with either a a Denial of Service (DoS) attack or rediection
+	attack the local router with either a Denial of Service (DoS) attack or rediection
 	of traffic destined to the local router.</t>
 	<t>/segment-routing/mpls/sid-db - Knowledge of these data nodes can be used to
 	attack the other routers in the segment routing domain with either a a Denial of
-	Service (DoS) attack or rediection traffic destined for those routers.</t>
+	Service (DoS) attack or redirection of traffic destined for those routers.</t>
       </list></t>
       <t>Furthermore exposure the node's capabilities and maximum segment depth may be
       useful in mounting a Denial-of-Service (DOS) attack by sending the node SR packets
@@ -1405,12 +1405,12 @@ module ietf-segment-routing-mpls {
       &RFC6020;
       &RFC6241;
       &RFC6242;
-      &RFC6536;
       &RFC6991;
       &RFC7950;
       &RFC8040;
       &RFC8174;
       &RFC8294;
+      &RFC8341;
       &RFC8342;
       &RFC8343;
       &RFC8349;
