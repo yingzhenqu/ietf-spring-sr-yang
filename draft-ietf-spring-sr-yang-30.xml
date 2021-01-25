@@ -1406,7 +1406,6 @@ module ietf-segment-routing-mpls {
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
       &RFC2119;
       &RFC3688;
-      &RFC5246;
       &RFC6020;
       &RFC6241;
       &RFC6242;
