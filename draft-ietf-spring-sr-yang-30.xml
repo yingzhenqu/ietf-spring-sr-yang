@@ -1333,7 +1333,7 @@ module ietf-segment-routing-mpls {
 	attack the other routers in the segment routing domain with either a a Denial of
 	Service (DoS) attack or redirection traffic destined for those routers.</t>
       </list></t>
-      <t>Furthermore exposure the node's capabilities and maximum segment depth may be
+      <t>Furthermore exposure the node's capabilities may be
       useful in mounting a Denial-of-Service (DOS) attack by sending the node SR packets
       that the router can't process. These correspond to the following schema nodes:
       <list style="empty">
