@@ -12,8 +12,6 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
     <!ENTITY RFC6242 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml'>
-    <!ENTITY RFC6536 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6536.xml'>
     <!ENTITY RFC6991 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
     <!ENTITY RFC7950 PUBLIC ''
@@ -26,6 +24,8 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8294.xml'>
     <!ENTITY RFC8340 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'>
+    <!ENTITY RFC8341 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'>
     <!ENTITY RFC8342 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8342.xml'>
     <!ENTITY RFC8343 PUBLIC ''
@@ -1305,7 +1305,7 @@ module ietf-segment-routing-mpls {
        mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>
        <xref target="RFC8846"/>.</t>
 
-      <t>The NETCONF access control model <xref target="RFC6536"/> provides the
+      <t>The NETCONF access control model <xref target="RFC8341"/> provides the
       means to restrict access for particular NETCONF or RESTCONF users to a
       pre-configured subset of all available NETCONF or RESTCONF protocol
       operations and content.</t>
@@ -1321,19 +1321,30 @@ module ietf-segment-routing-mpls {
        <t>/segment-routing</t>
        <t>/segment-routing/mpls</t>
        <t>/segment-routing/mpls/bindings - Modification to the local bindings could result
-       in a Denial of Service (DoS) attack.</t>
+       in a Denial of Service (DoS) attack. An attacker may also try to create segment conflicts
+       (using the same segment identifier for different purposes) to redirect traffic within the
+       trusted domain. However, the traffic will remain within the trusted domain.
+       Redirection could be used to route the traffic to compromised nodes within
+       the trusted domain or to avoid certain security functions (e.g., firewall). 
+       Refer to section 8.1 <xref target="RFC8402"/> for a discussion of the SR-MPLS
+       trusted domain. 
+       </t>
        <t>/segment-routing/mpls/srgb - Modification of the Segment Routing Global
-       Block (SRGB) could be used to mount a DoS attack.</t>
+       Block (SRGB) could be used to mount a DoS attack. For example, if the SRGB
+       size is reduced to a very small value, a lot of existing segments could no longer
+       be installed leading to a traffic disruption.
+       </t>
        <t>/segment-routing/mpls/srlb - Modification of the Segment Routing Local Block (SRLB)
        could be used to mount a DoS attack.</t>
       </list></t>
 
+
       <t>Some of the readable data nodes in the modules
       may be considered sensitive or vulnerable in some network environments. It is thus
       important to control read access (e.g., via get, get-config, or notification)
-      to these data nodes. The exposure of both local bindings and SID database
-      will exposure segment routing paths that may be attacked. These
-      correspond to the following schema nodes:
+      to these data nodes. The exposure of either the local bindings or SID database would
+      provide an attacker the segment routing paths and related topology information.
+      These correspond to the following schema nodes:
       <list style="empty">
 	<t>/segment-routing/mpls/bindings - Knowledge of these data nodes can be used to
 	attack the local router with a Denial of Service (DoS) attack.</t>
@@ -1421,12 +1432,12 @@ module ietf-segment-routing-mpls {
       &RFC6020;
       &RFC6241;
       &RFC6242;
-      &RFC6536;
       &RFC6991;
       &RFC7950;
       &RFC8040;
       &RFC8174;
       &RFC8294;
+      &RFC8341;
       &RFC8342;
       &RFC8343;
       &RFC8349;
