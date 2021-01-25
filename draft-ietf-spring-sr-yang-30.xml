@@ -4,8 +4,6 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
     <!ENTITY RFC3688 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
-    <!ENTITY RFC5246 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml'>
     <!ENTITY RFC6020 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml'>
     <!ENTITY RFC6241 PUBLIC ''
@@ -34,6 +32,8 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8349.xml'>
     <!ENTITY RFC8402 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8402.xml'>
+    <!ENTITY RFC8446 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml'>
     <!ENTITY RFC8476 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8476.xml'>
     <!ENTITY RFC8491 PUBLIC ''
@@ -50,8 +50,6 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8792.xml'>
     <!ENTITY RFC8814 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8814.xml'>
-    <!ENTITY RFC8846 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8846.xml'>
     ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes"?>
@@ -1283,8 +1281,7 @@ module ietf-segment-routing-mpls {
        RESTCONF <xref target="RFC8040"/>. The lowest NETCONF layer is the secure transport
        layer, and the mandatory-to-implement secure transport is Secure Shell (SSH)
        <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
-       mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>
-       <xref target="RFC8846"/>.</t>
+       mandatory-to-implement secure transport is TLS <xref target="RFC8446"/>.</t>
 
       <t>The NETCONF access control model <xref target="RFC8341"/> provides the
       means to restrict access for particular NETCONF or RESTCONF users to a
@@ -1423,6 +1420,7 @@ module ietf-segment-routing-mpls {
       &RFC8343;
       &RFC8349;
       &RFC8402;
+      &RFC8446;
       &RFC8476;
       &RFC8491;
       &RFC8660;
@@ -1430,7 +1428,6 @@ module ietf-segment-routing-mpls {
       &RFC8667;
       &RFC8669;
       &RFC8814;
-      &RFC8846;
     </references>
     <references title="Informative References">
       &RFC8340;
