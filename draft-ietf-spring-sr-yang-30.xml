@@ -126,7 +126,9 @@
           elements to configure or operate the segment routing MPLS data
           plane <xref target="RFC8660"/>.
           This document does not define the IGP extensions to support segment routing but defines generic
-          groupings that SHOULD be reused by IGP extension modules. The reason of this design choice is to not require implementations to support all IGP extensions. For example, an implementation may support IS-IS extension but not OSPF.
+          groupings to be reused by IGP extension modules. The reason of this design choice
+	  is to not require implementations to support all IGP extensions. For example, an implementation
+	  may support the IS-IS extension but not the OSPF extension.
           </t>
       <t>The YANG modules in this document conform to the Network Management
         Datastore Architecture (NMDA) <xref target="RFC8342"/>.
@@ -169,7 +171,7 @@
       <t>Module ietf-segment-routing-mpls augments ietf-segment-routing, and
         supports SR MPLS data plane configuration and operational state. </t>
       <t>Module ietf-segment-routing-common defines generic types and groupings 
-        that to be reused by IGP extension modules.</t>
+        that SHOULD be reused by IGP extension modules.</t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
 module: ietf-segment-routing
@@ -1275,27 +1277,6 @@ module ietf-segment-routing-mpls {
     </section>
   </section>
     <section anchor="Security" title="Security Considerations" toc="default">
-      <t>The segment-routing architecture is based on the concept of 
-        trust domains and expect filtering to happen at the boundary 
-        of the trust domain (<xref target="RFC8402"/> Section 8). The 
-        trust domain boundaries prevent traffic using segments to go 
-        out of the domain and prevent any traffic using segments to 
-        come from an external interface.</t>
-      <t>This document enables the instantiation of segment-routing 
-        constructs (segments and blocks) on a particular device. Any 
-        modification of these may lead to traffic disruption. For 
-        instance, if the SRGB or SRLB size is reduced to a very small 
-        value, a lot of existing segments couldn’t be installed anymore 
-        leading to a traffic disruption. Similarly, removing/modifying 
-        a segment may create traffic disruption to this segment. An 
-        attacker may also try to create segment conflicts (using the 
-        same segment identifier for different purposes) to redirect 
-        traffic within the trusted domain, however the traffic will 
-        remain within the trusted domain and will probably be dropped 
-        if the new receiving node is not able to process the 
-        subsequent segments. This document does not provide a way for 
-        an attacker to forward the traffic outside the trusted domain.
-      </t>
       <t>The YANG modules specified in this document define a schema for
        data that is designed to be accessed via network
        management protocols such as NETCONF <xref target="RFC6241"/> or
@@ -1326,7 +1307,7 @@ module ietf-segment-routing-mpls {
        trusted domain. However, the traffic will remain within the trusted domain.
        Redirection could be used to route the traffic to compromised nodes within
        the trusted domain or to avoid certain security functions (e.g., firewall). 
-       Refer to section 8.1 <xref target="RFC8402"/> for a discussion of the SR-MPLS
+       Refer to section 8.1 of <xref target="RFC8402"/> for a discussion of the SR-MPLS
        trusted domain. 
        </t>
        <t>/segment-routing/mpls/srgb - Modification of the Segment Routing Global
@@ -1335,7 +1316,7 @@ module ietf-segment-routing-mpls {
        be installed leading to a traffic disruption.
        </t>
        <t>/segment-routing/mpls/srlb - Modification of the Segment Routing Local Block (SRLB)
-       could be used to mount a DoS attack.</t>
+       could be used to mount a DoS attacks similar to those applicable to the SRGB.</t>
       </list></t>
 
 
