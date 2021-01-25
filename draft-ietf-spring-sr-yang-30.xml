@@ -169,7 +169,7 @@
       <t>Module ietf-segment-routing-mpls augments ietf-segment-routing, and
         supports SR MPLS data plane configuration and operational state. </t>
       <t>Module ietf-segment-routing-common defines generic types and groupings 
-        that SHOULD be reused by IGP extension modules.</t>
+        that to be reused by IGP extension modules.</t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
 module: ietf-segment-routing
@@ -179,14 +179,6 @@ module: ietf-segment-routing
 module: ietf-segment-routing-mpls
   augment /rt:routing/sr:segment-routing:
     +--rw sr-mpls
-       +--ro node-capabilities
-       |  +--ro entropy-readable-label-depth?   uint8
-       +--ro msd {max-sid-depth}?
-       |  +--ro node-msd?   uint8
-       |  +--ro link-msds
-       |     +--ro link-msds* [interface]
-       |        +--ro interface    if:interface-ref
-       |        +--ro msd?         uint8
        +--rw bindings
        |  +--rw mapping-server {mapping-server}?
        |  |  +--rw policy* [name]
@@ -398,8 +390,86 @@ module: ietf-segment-routing-mpls
 
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing@2020-12-08.yang"
->
+<CODE BEGINS> file "ietf-segment-routing@2021-01-25.yang"
+module ietf-segment-routing {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing";
+  prefix sr;
+
+  import ietf-routing {
+    prefix rt;
+    reference "RFC 8349: A YANG Data Model for Routing
+               Management (NMDA Version)";
+  }
+
+  organization
+    "IETF SPRING - SPRING Working Group";
+  contact
+    "WG Web:   <https://tools.ietf.org/wg/spring/>
+     WG List:  <mailto:spring@ietf.org>
+
+     Author:    Stephane Litkowski
+               <mailto:slitkows.ietf@gmail.com>
+     Author:    Yingzhen Qu
+               <mailto:yingzhen.qu@futurewei.com>
+     Author:    Acee Lindem
+               <mailto:acee@cisco.com>
+     Author:    Pushpasis Sarkar
+               <mailto:pushpasis.ietf@gmail.com>
+     Author:    Jeff Tantsura
+               <jefftant.ietf@gmail.com>
+
+    ";
+  description
+    "The YANG module defines a generic framework for Segment
+     Routing. It is to be augmented by models for different
+     SR data planes.
+
+     This YANG model conforms to the Network Management
+     Datastore Architecture (NMDA) as described in RFC 8242.
+
+     Copyright (c) 2021 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Simplified BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC XXXX;
+     see the RFC itself for full legal notices.
+
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
+
+
+  reference "RFC XXXX: YANG Data Model for Segment Routing.";
+
+  revision 2021-01-25 {
+    description
+      "Initial Version";
+    reference "RFC XXXX: YANG Data Model for Segment Routing.";
+  }
+
+  augment "/rt:routing" {
+    description
+      "This module augments routing data model (RFC 8349)
+       with Segment Routing (SR).";
+    container segment-routing {
+      description
+        "Segment Routing configuration. This container
+         is to be augmented by models for different SR
+         data planes.";
+      reference "RFC 8402: Segment Routing Architecture.";
+    }
+  }
+}
+<CODE ENDS>
   ]]></artwork>
       </figure>
       </section>
@@ -409,7 +479,7 @@ module: ietf-segment-routing-mpls
 
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing-common@2020-12-08.yang"
+<CODE BEGINS> file "ietf-segment-routing-common@2021-01-25.yang"
 module ietf-segment-routing-common {
   yang-version 1.1;
   namespace
@@ -447,7 +517,7 @@ module ietf-segment-routing-common {
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8242.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -468,7 +538,7 @@ module ietf-segment-routing-common {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-12-08 {
+  revision 2021-01-25 {
     description
       "Initial version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -568,7 +638,7 @@ module ietf-segment-routing-common {
 
   grouping prefix-sid {
     description
-      "This grouping defines configuration of a prefix SID.";
+      "This grouping defines cfg of prefix SID.";
     leaf prefix {
       type inet:ip-prefix;
       description
@@ -623,21 +693,6 @@ module ietf-segment-routing-common {
     }
   }
 
-  grouping node-capabilities {
-    description
-      "Containing SR node capabilities.";
-    container node-capabilities {
-      config false;
-      description
-        "Shows the SR capability of the node.";
-      leaf entropy-readable-label-depth {
-        type uint8;
-        description
-          "Maximum label stack depth that a router can read.";
-      }
-    }
-  }
-
   grouping prefix-sid-attributes {
     description
       "Grouping for Segment Routing (SR) prefix attributes.";
@@ -672,7 +727,7 @@ module ietf-segment-routing-common {
             and operational states for the Segment Routing MPLS data plane.</t>
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork><![CDATA[
-<CODE BEGINS> file "ietf-segment-routing-mpls@2020-12-08
+<CODE BEGINS> file "ietf-segment-routing-mpls@2021-01-25.yang"
 module ietf-segment-routing-mpls {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-segment-routing-mpls";
@@ -685,11 +740,6 @@ module ietf-segment-routing-mpls {
   import ietf-routing {
     prefix rt;
     reference "RFC 8349: A YANG Data Model for Routing
-                         Management (NMDA Version)";
-  }
-  import ietf-interfaces {
-    prefix if;
-    reference "RFC 8343: A YANG Data Model for Interface
                          Management (NMDA Version)";
   }
   import ietf-routing-types {
@@ -731,7 +781,7 @@ module ietf-segment-routing-mpls {
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8242.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -752,7 +802,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-12-08 {
+  revision 2021-01-25 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -771,20 +821,6 @@ module ietf-segment-routing-mpls {
        (SRGB) configuration.";
        reference "RFC 8660: Segment Routing with the MPLS
                             Data Plane";
-  }
-
-  feature max-sid-depth {
-    description
-      "Support for signaling MSD (Maximum SID Depth) in OSPF,
-       IS-IS, or BGP. Feature support indicates signaling in
-       at least one of these protocols.";
-      reference "RFC 8476: Signaling Maximum SID Depth (MSD)
-                           Using OSPF
-                 RFC 8491: Signaling Maximum SID Depth (MSD)
-                           Using IS-IS
-                 RFC 8814: Singaling Maximum SID Deppt (MSD)
-                           Using the Border Gateway Protocol
-                           (BGP) - Link State";
   }
 
   typedef system-id {
@@ -932,36 +968,6 @@ module ietf-segment-routing-mpls {
     }
   }
 
-  grouping max-sid-depth {
-    description
-      "Maximum SID Depth (MSD) operational state grouping.";
-    leaf node-msd {
-      type uint8;
-      description
-        "Node MSD is the smallest link MSD supported by
-         the node.";
-    }
-    container link-msds {
-      description
-        "MSD supported by an individual interface.";
-      list link-msds {
-        key "interface";
-        description
-          "List of link MSDs.";
-        leaf interface {
-          type if:interface-ref;
-          description
-            "Reference to device interface.";
-        }
-        leaf msd {
-          type uint8;
-          description
-            "MSD supported by the interface.";
-        }
-      }
-    }
-  }
-
   augment "/rt:routing/sr:segment-routing" {
     description
       "This augments routing data model (RFC 8349)
@@ -970,14 +976,7 @@ module ietf-segment-routing-mpls {
       description
         "Segment Routing global configuration and
          operational state.";
-      uses sr-cmn:node-capabilities;
-      container msd {
-        if-feature "max-sid-depth";
-        config false;
-        description
-          "Maximum Segment Depth (MSD) Operational State.";
-        uses max-sid-depth;
-      }
+
       container bindings {
         description
           "List of bindings.";
@@ -1276,6 +1275,27 @@ module ietf-segment-routing-mpls {
     </section>
   </section>
     <section anchor="Security" title="Security Considerations" toc="default">
+      <t>The segment-routing architecture is based on the concept of 
+        trust domains and expect filtering to happen at the boundary 
+        of the trust domain (<xref target="RFC8402"/> Section 8). The 
+        trust domain boundaries prevent traffic using segments to go 
+        out of the domain and prevent any traffic using segments to 
+        come from an external interface.</t>
+      <t>This document enables the instantiation of segment-routing 
+        constructs (segments and blocks) on a particular device. Any 
+        modification of these may lead to traffic disruption. For 
+        instance, if the SRGB or SRLB size is reduced to a very small 
+        value, a lot of existing segments couldn’t be installed anymore 
+        leading to a traffic disruption. Similarly, removing/modifying 
+        a segment may create traffic disruption to this segment. An 
+        attacker may also try to create segment conflicts (using the 
+        same segment identifier for different purposes) to redirect 
+        traffic within the trusted domain, however the traffic will 
+        remain within the trusted domain and will probably be dropped 
+        if the new receiving node is not able to process the 
+        subsequent segments. This document does not provide a way for 
+        an attacker to forward the traffic outside the trusted domain.
+      </t>
       <t>The YANG modules specified in this document define a schema for
        data that is designed to be accessed via network
        management protocols such as NETCONF <xref target="RFC6241"/> or
@@ -1301,13 +1321,10 @@ module ietf-segment-routing-mpls {
        <t>/segment-routing</t>
        <t>/segment-routing/mpls</t>
        <t>/segment-routing/mpls/bindings - Modification to the local bindings could result
-       in a Denial of Service (DoS) attack. Additionally, the addition of bindings could
-       result in traffic being redirected to the router.</t>
+       in a Denial of Service (DoS) attack.</t>
        <t>/segment-routing/mpls/srgb - Modification of the Segment Routing Global
        Block (SRGB) could be used to mount a DoS attack.</t>
        <t>/segment-routing/mpls/srlb - Modification of the Segment Routing Local Block (SRLB)
-       could be used to mount a DoS attack.</t>
-       <t>/segment-routing/mpls/label-blocks - Modification of the Segment Routing label blocks
        could be used to mount a DoS attack.</t>
       </list></t>
 
@@ -1319,11 +1336,11 @@ module ietf-segment-routing-mpls {
       correspond to the following schema nodes:
       <list style="empty">
 	<t>/segment-routing/mpls/bindings - Knowledge of these data nodes can be used to
-	attack the local router with either a a Denial of Service (DoS) attack or rediection
+	attack the local router with either a a Denial of Service (DoS) attack or redirection
 	of traffic destined to the local router.</t>
 	<t>/segment-routing/mpls/sid-db - Knowledge of these data nodes can be used to
 	attack the other routers in the segment routing domain with either a a Denial of
-	Service (DoS) attack or rediection traffic destined for those routers.</t>
+	Service (DoS) attack or redirection traffic destined for those routers.</t>
       </list></t>
       <t>Furthermore exposure the node's capabilities and maximum segment depth may be
       useful in mounting a Denial-of-Service (DOS) attack by sending the node SR packets

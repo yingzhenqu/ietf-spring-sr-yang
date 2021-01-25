@@ -12,11 +12,6 @@ module ietf-segment-routing-mpls {
     reference "RFC 8349: A YANG Data Model for Routing
                          Management (NMDA Version)";
   }
-  import ietf-interfaces {
-    prefix if;
-    reference "RFC 8343: A YANG Data Model for Interface
-                         Management (NMDA Version)";
-  }
   import ietf-routing-types {
     prefix rt-types;
     reference "RFC 8294: Common YANG Data Types for the
@@ -56,7 +51,7 @@ module ietf-segment-routing-mpls {
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8242.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -77,7 +72,7 @@ module ietf-segment-routing-mpls {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2020-12-08 {
+  revision 2021-01-25 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -96,20 +91,6 @@ module ietf-segment-routing-mpls {
        (SRGB) configuration.";
        reference "RFC 8660: Segment Routing with the MPLS
                             Data Plane";
-  }
-
-  feature max-sid-depth {
-    description
-      "Support for signaling MSD (Maximum SID Depth) in OSPF,
-       IS-IS, or BGP. Feature support indicates signaling in
-       at least one of these protocols.";
-      reference "RFC 8476: Signaling Maximum SID Depth (MSD)
-                           Using OSPF
-                 RFC 8491: Signaling Maximum SID Depth (MSD)
-                           Using IS-IS
-                 RFC 8814: Singaling Maximum SID Deppt (MSD)
-                           Using the Border Gateway Protocol
-                           (BGP) - Link State";
   }
 
   typedef system-id {
@@ -257,36 +238,6 @@ module ietf-segment-routing-mpls {
     }
   }
 
-  grouping max-sid-depth {
-    description
-      "Maximum SID Depth (MSD) operational state grouping.";
-    leaf node-msd {
-      type uint8;
-      description
-        "Node MSD is the smallest link MSD supported by
-         the node.";
-    }
-    container link-msds {
-      description
-        "MSD supported by an individual interface.";
-      list link-msds {
-        key "interface";
-        description
-          "List of link MSDs.";
-        leaf interface {
-          type if:interface-ref;
-          description
-            "Reference to device interface.";
-        }
-        leaf msd {
-          type uint8;
-          description
-            "MSD supported by the interface.";
-        }
-      }
-    }
-  }
-
   augment "/rt:routing/sr:segment-routing" {
     description
       "This augments routing data model (RFC 8349)
@@ -295,14 +246,7 @@ module ietf-segment-routing-mpls {
       description
         "Segment Routing global configuration and
          operational state.";
-      uses sr-cmn:node-capabilities;
-      container msd {
-        if-feature "max-sid-depth";
-        config false;
-        description
-          "Maximum Segment Depth (MSD) Operational State.";
-        uses max-sid-depth;
-      }
+
       container bindings {
         description
           "List of bindings.";
