@@ -1336,8 +1336,7 @@ module ietf-segment-routing-mpls {
       correspond to the following schema nodes:
       <list style="empty">
 	<t>/segment-routing/mpls/bindings - Knowledge of these data nodes can be used to
-	attack the local router with either a a Denial of Service (DoS) attack or redirection
-	of traffic destined to the local router.</t>
+	attack the local router with a Denial of Service (DoS) attack.</t>
 	<t>/segment-routing/mpls/sid-db - Knowledge of these data nodes can be used to
 	attack the other routers in the segment routing domain with either a a Denial of
 	Service (DoS) attack or redirection traffic destined for those routers.</t>
