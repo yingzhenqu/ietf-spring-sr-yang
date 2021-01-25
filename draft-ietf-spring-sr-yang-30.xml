@@ -1301,15 +1301,26 @@ module ietf-segment-routing-mpls {
        <t>/segment-routing</t>
        <t>/segment-routing/mpls</t>
        <t>/segment-routing/mpls/bindings - Modification to the local bindings could result
-       in a Denial of Service (DoS) attack. Additionally, the addition of bindings could
-       result in traffic being redirected to the router.</t>
+       in a Denial of Service (DoS) attack. An attacker may also try to create segment conflicts
+       (using the same segment identifier for different purposes) to redirect traffic within the
+       trusted domain. However, the traffic will remain within the trusted domain.
+       Redirection could be used to route the traffic to compromised nodes within
+       the trusted domain or to avoid certion security functions (e.g., firewall). 
+       Refer to section 8.1 <xref target="RFC8402"/> for a discussion of the SR-MPLS
+       trusted domain. 
+       </t>
        <t>/segment-routing/mpls/srgb - Modification of the Segment Routing Global
-       Block (SRGB) could be used to mount a DoS attack.</t>
+       Block (SRGB) could be used to mount a DoS attack. For example, if the SRGB
+       size is reduced to a very small value, a lot of existing segments could no longer
+       be installed leading to a traffic disruption.
+       </t>
        <t>/segment-routing/mpls/srlb - Modification of the Segment Routing Local Block (SRLB)
-       could be used to mount a DoS attack.</t>
+       could be used to mount a DoS attacks similar to those applicable to the SRGB.
+       </t>
        <t>/segment-routing/mpls/label-blocks - Modification of the Segment Routing label blocks
        could be used to mount a DoS attack.</t>
       </list></t>
+
 
       <t>Some of the readable data nodes in the modules
       may be considered sensitive or vulnerable in some network environments. It is thus
