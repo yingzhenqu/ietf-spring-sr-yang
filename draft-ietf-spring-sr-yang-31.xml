@@ -34,10 +34,6 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8402.xml'>
     <!ENTITY RFC8446 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml'>
-    <!ENTITY RFC8476 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8476.xml'>
-    <!ENTITY RFC8491 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8491.xml'>
     <!ENTITY RFC8660 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8660.xml'>
     <!ENTITY RFC8665 PUBLIC ''
@@ -58,7 +54,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc docName="draft-ietf-spring-sr-yang-30" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+<rfc docName="draft-ietf-spring-sr-yang-31" ipr="trust200902" category="std" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
   <front>
     <title abbrev="sr-yang-cfg">YANG Data Model for Segment Routing</title>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -379,8 +375,7 @@ module: ietf-segment-routing-mpls
       <t>The following RFCs and drafts are not referenced in the document text but
       are referenced in the ietf-segment-routing.yang, ietf-segment-routing-common.yang,
       and/or ietf-segment-routing-mpls.yang modules:
-      <xref target="RFC6991"/>, <xref target="RFC8294"/>,
-      <xref target="RFC8476"/>, <xref target="RFC8491"/>, <xref target="RFC8665"/>,
+      <xref target="RFC6991"/>, <xref target="RFC8294"/>, <xref target="RFC8665"/>,
       <xref target="RFC8667"/>, <xref target="RFC8669"/>, and <xref target="RFC8814"/>.
       </t>
       <section anchor="sr-yang" title="YANG Module for Segment Routing" toc="default">
@@ -1330,13 +1325,6 @@ module ietf-segment-routing-mpls {
 	attack the other routers in the segment routing domain with either a a Denial of
 	Service (DoS) attack or redirection traffic destined for those routers.</t>
       </list></t>
-      <t>Furthermore exposure the node's capabilities may be
-      useful in mounting a Denial-of-Service (DOS) attack by sending the node SR packets
-      that the router can't process. These correspond to the following schema nodes:
-      <list style="empty">
-	<t>/segment-routing/mpls/node-capabilities</t>
-	<t>/segment-routing/mpls/msd</t>
-      </list></t>
     </section>
     <section anchor="Acknowledgements" title="Acknowledgements" toc="default">
       <t>The authors would like to thank Derek Yeung, Greg Hankins, Hannes Gredler, Uma Chunduri,
@@ -1420,8 +1408,6 @@ module ietf-segment-routing-mpls {
       &RFC8349;
       &RFC8402;
       &RFC8446;
-      &RFC8476;
-      &RFC8491;
       &RFC8660;
       &RFC8665;
       &RFC8667;
