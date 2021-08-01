@@ -5,14 +5,16 @@ module ietf-mpls-msd {
 
   import ietf-routing {
     prefix rt;
-    reference "RFC 8349: A YANG Data Model for Routing
-               Management (NMDA Version)";
+    reference 
+      "RFC 8349: A YANG Data Model for Routing
+                 Management (NMDA Version)";
   }
 
   import ietf-interfaces {
     prefix if;
-    reference "RFC 8343: A YANG Data Model for Interface
-                         Management (NMDA Version)";
+    reference 
+      "RFC 8343: A YANG Data Model for Interface
+                 Management (NMDA Version)";
   }
 
   import ietf-mpls {
@@ -65,7 +67,7 @@ module ietf-mpls-msd {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2021-02-04 {
+  revision 2021-08-01 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -103,7 +105,7 @@ module ietf-mpls-msd {
         base msd-base-type;
         }
         description
-          "MSD-Types";
+          "MSD types";
       }
       leaf msd-value {
         type uint8;
@@ -128,7 +130,7 @@ module ietf-mpls-msd {
             base msd-base-type;
           }
           description
-            "MSD-Types";
+            "MSD type";
         }
         leaf msd-value {
           type uint8;

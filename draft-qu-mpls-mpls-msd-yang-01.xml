@@ -4,24 +4,24 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
     <!ENTITY RFC3688 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
-    <!ENTITY RFC5246 PUBLIC '' 
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml'>
     <!ENTITY RFC6020 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml'>
     <!ENTITY RFC6241 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
     <!ENTITY RFC6242 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml'>
-    <!ENTITY RFC6536 PUBLIC '' 
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6536.xml'>
     <!ENTITY RFC7950 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
     <!ENTITY RFC8040 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'>
+    <!ENTITY RFC8341 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'>
     <!ENTITY RFC8342 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8342.xml'>
     <!ENTITY RFC8349 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8349.xml'>
+    <!ENTITY RFC8446 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml'>
     <!ENTITY RFC8476 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8476.xml'>
     <!ENTITY RFC8491 PUBLIC '' 
@@ -40,7 +40,7 @@
 <?rfc rfcedstyle="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-qu-mpls-mpls-msd-yang-00" ipr="trust200902">
+<rfc category="std" docName="draft-qu-mpls-mpls-msd-yang-01" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -122,14 +122,14 @@
 
     <abstract>
       <t>This document defines a YANG data module augmenting the IETF MPLS YANG
-      model to provide support for MPLS Maximum SID Depths (MSDs) as defined 
+      model to provide support for MPLS Maximum SID Depths (MSDs) as defined in
       RFC 8476 and RFC 8491. </t>
     </abstract>
   </front>
 
   <middle>
     <section title="Overview">
-      <t>YANG <xref target="RFC6020"></xref>  <xref target="RFC7950"></xref> is a 
+      <t>YANG <xref target="RFC7950"></xref> is a 
       data definition language 
       used to define the contents of a conceptual data store 
       that allows networked devices to be managed using NETCONF 
@@ -186,7 +186,7 @@ module: ietf-mpls-msd
         <t>
     <figure>
       <artwork><![CDATA[
-<CODE BEGINS> file "ietf-mpls-msd@2021-02-04.yang"
+<CODE BEGINS> file "ietf-mpls-msd@2021-08-01.yang"
 module ietf-mpls-msd {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-mpls-msd";
@@ -194,14 +194,16 @@ module ietf-mpls-msd {
 
   import ietf-routing {
     prefix rt;
-    reference "RFC 8349: A YANG Data Model for Routing
-               Management (NMDA Version)";
+    reference 
+      "RFC 8349: A YANG Data Model for Routing
+                 Management (NMDA Version)";
   }
 
   import ietf-interfaces {
     prefix if;
-    reference "RFC 8343: A YANG Data Model for Interface
-                         Management (NMDA Version)";
+    reference 
+      "RFC 8343: A YANG Data Model for Interface
+                 Management (NMDA Version)";
   }
 
   import ietf-mpls {
@@ -254,7 +256,7 @@ module ietf-mpls-msd {
 
   reference "RFC XXXX: YANG Data Model for Segment Routing.";
 
-  revision 2021-02-04 {
+  revision 2021-08-01 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for Segment Routing.";
@@ -292,7 +294,7 @@ module ietf-mpls-msd {
         base msd-base-type;
         }
         description
-          "MSD-Types";
+          "MSD types";
       }
       leaf msd-value {
         type uint8;
@@ -317,7 +319,7 @@ module ietf-mpls-msd {
             base msd-base-type;
           }
           description
-            "MSD-Types";
+            "MSD type";
         }
         leaf msd-value {
           type uint8;
@@ -359,9 +361,9 @@ module ietf-mpls-msd {
        RESTCONF <xref target="RFC8040"/>. The lowest NETCONF layer is the secure transport
        layer, and the mandatory-to-implement secure transport is Secure Shell (SSH)
        <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
-       mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>.</t>
+       mandatory-to-implement secure transport is TLS <xref target="RFC8446"/>.</t>
 
-   <t>The NETCONF access control model <xref target="RFC6536"/> provides the 
+   <t>The NETCONF Access Control Model (NACM) <xref target="RFC8341"/> provides the 
       means to restrict access for particular NETCONF or RESTCONF users to a
       pre-configured subset of all available NETCONF or RESTCONF protocol 
       operations and content.</t>
@@ -375,11 +377,15 @@ module ietf-mpls-msd {
    <t>Some of the readable data nodes in the modules
       may be considered sensitive or vulnerable in some network environments. It is thus 
       important to control read access (e.g., via get, get-config, or notification)
-      to these data nodes. The exposure of the Link State Database (LSDB) will
-      expose the detailed topology of the network. This may be undesirable since
-      both due to the fact that exposure may facilitate other attacks. Additionally, 
-      network operators may consider their topologies to be sensitive confidential
-      data.</t>
+      to these data nodes. These are the
+      subtrees and data nodes and their sensitivity/vulnerability:
+      <list style="empty">
+        <t>/rt:routing/mpls:mpls/msd/node-msds</t>
+        <t>/rt:routing/mpls:mpls/msd/link-msds</t>
+        <t>Exposure of the node's maximum SID depth may be useful in mounting a
+          Denial-of-Service (DoS) attach by sending packets to the node that 
+          the router can't process.</t>
+      </list></t>
 
    </section>
 <section title="IANA Considerations">
@@ -433,15 +439,15 @@ module ietf-mpls-msd {
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
       &RFC2119;
       &RFC3688;
-      &RFC5246;
       &RFC6020;
       &RFC6241;
       &RFC6242;
-      &RFC6536;
       &RFC7950;
       &RFC8040;
+      &RFC8341;
       &RFC8342;
       &RFC8349;
+      &RFC8446;
       &RFC8476;
       &RFC8491;
       &RFC8960;
