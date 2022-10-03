@@ -34,7 +34,7 @@ module ietf-mpls-msd {
     ";
   description
     "The YANG module augments the base MPLS model, and it is to 
-     provide support of different types of Maximum SID Depth (MSD).
+     provide support for different types of Maximum SID Depth (MSD).
 
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8342.

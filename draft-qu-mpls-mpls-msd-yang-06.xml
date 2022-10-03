@@ -140,7 +140,9 @@
       <t>This document defines a YANG data model augmenting the IETF MPLS 
       YANG model <xref target="RFC8960"/>, which itself augments 
       <xref target="RFC8349"/>, to provide operational state for 
-      various MSDs<xref target="RFC8662"/>.
+      various MSDs<xref target="RFC8662"/>. The model augments the base MPLS
+      model with a list of various types of node MSDs, as well as various types
+      of MSDs on links.
       </t>
   
       <t>The augmentation defined in this document requires support for the 
@@ -223,7 +225,7 @@ module ietf-mpls-msd {
     ";
   description
     "The YANG module augments the base MPLS model, and it is to 
-     provide support of different types of Maximum SID Depth (MSD).
+     provide support for different types of Maximum SID Depth (MSD).
 
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8342.
