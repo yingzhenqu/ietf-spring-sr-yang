@@ -42,7 +42,7 @@
 <?rfc rfcedstyle="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-mpls-msd-yang-00" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-mpls-msd-yang-01" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -75,13 +75,13 @@
       </address>
     </author>
     <author fullname="Acee Lindem" initials="A." surname="Lindem">
-      <organization>Cisco Systems</organization>
+      <organization>LabN</organization>
       <address>
         <postal>
           <street>301 Midenhall Way</street>
           <city>Cary, NC 27513</city>
         </postal>
-        <email>acee@cisco.com</email>
+        <email>acee.ietf@gmail.com</email>
       </address>
     </author>
     <author fullname="Stephane Litkowski" initials="S" surname="Litkowski">
@@ -91,7 +91,7 @@
       </address>
     </author>
     <author fullname="Jeff Tantsura" initials="J" surname="Tantsura">
-      <organization>Microsoft</organization>
+      <organization>Nvidia</organization>
       <address>
         <email>jefftant.ietf@gmail.com</email>
       </address>
@@ -188,7 +188,7 @@ module: ietf-mpls-msd
         <t>
     <figure>
       <artwork><![CDATA[
-<CODE BEGINS> file "ietf-mpls-msd@2022-10-12.yang"
+<CODE BEGINS> file "ietf-mpls-msd@2023-04-23.yang"
 module ietf-mpls-msd {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-mpls-msd";
@@ -214,9 +214,9 @@ module ietf-mpls-msd {
      WG List:  <mailto:mpls@ietf.org>
 
      Author:    Yingzhen Qu
-               <mailto:yingzhen.qu@futurewei.com>
+               <mailto:yingzhen.ietf@gmail.com>
      Author:    Acee Lindem
-               <mailto:acee@cisco.com>
+               <mailto:acee.ietf@gmail.com>
      Author:    Stephane Litkowski
                <mailto:slitkows.ietf@gmail.com>
      Author:    Jeff Tantsura
@@ -230,7 +230,7 @@ module ietf-mpls-msd {
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8342.
 
-     Copyright (c) 2022 IETF Trust and the persons identified as
+     Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -252,7 +252,7 @@ module ietf-mpls-msd {
 
   reference "RFC XXXX: YANG Data Model for MPLS MSD.";
 
-  revision 2022-10-12 {
+  revision 2023-04-23 {
     description
       "Initial Version";
     reference "RFC XXXX: YANG Data Model for MPLS MSD.";
