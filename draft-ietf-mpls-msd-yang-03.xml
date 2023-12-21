@@ -44,7 +44,7 @@
 <?rfc rfcedstyle="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-mpls-msd-yang-02" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-mpls-msd-yang-03" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -77,7 +77,7 @@
       </address>
     </author>
     <author fullname="Acee Lindem" initials="A." surname="Lindem">
-      <organization>LabN</organization>
+      <organization>LabN Consulting, L.L.C.</organization>
       <address>
         <postal>
           <street>301 Midenhall Way</street>
@@ -211,12 +211,12 @@
 module: ietf-mpls-msd
   augment /rt:routing/mpls:mpls:
     +--ro node-msd
-       +--ro node-msds* []
+       +--ro node-msds* [msd-type]
           +--ro msd-type?    identityref
           +--ro msd-value?   uint8
   augment /rt:routing/mpls:mpls/mpls:interfaces/mpls:interface:
     +--ro link-msd
-       +--ro link-msds* []
+       +--ro link-msds* [msd-type]
           +--ro msd-type?    identityref
           +--ro msd-value?   uint8
              
@@ -230,8 +230,8 @@ module: ietf-mpls-msd
         <t>
     <figure>
       <artwork><![CDATA[
-<CODE BEGINS> file "iana-msd-types@2023-10-22.yang"
- module iana-msd-types {
+<CODE BEGINS> file "iana-msd-types@2023-12-19.yang"
+module iana-msd-types {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:iana-msd-types";
   prefix iana-msd-types;
@@ -247,10 +247,9 @@ module: ietf-mpls-msd
              United States of America
      Tel:    +1 310 301 5800
      <mailto:iana@iana.org>";
-
   description
     "The YANG module defines the identities for Maximum SID Depth
-    (MSD) Types.
+     (MSD) Types.
 
      Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
@@ -266,11 +265,11 @@ module: ietf-mpls-msd
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2023-10-22 {
+  revision 2023-12-19 {
     description
       "Initial Version";
     reference
-      "RFC XXXX: YA YANG Data Model for MPLS MSD..";
+      "RFC XXXX: A YANG Data Model for MPLS MSD..";
   }
 
   identity msd-base {
@@ -297,10 +296,10 @@ module: ietf-mpls-msd
   identity msd-erld {
     base msd-base-mpls;
     description
-      "msd-erld is defined to advertise the Entropy Readable 
+      "msd-erld is defined to advertise the Entropy Readable
        Label Depth (ERLD).";
     reference
-      "RFC 8662: Entropy Label for Source Packet Routing in 
+      "RFC 8662: Entropy Label for Source Packet Routing in
                  Networking (SPRING) Tunnels";
   }
 
@@ -328,7 +327,7 @@ module: ietf-mpls-msd
                  over the IPv6 Data Plane";
   }
 
-    identity msd-srh-max-hen-cap {
+  identity msd-srh-max-hen-cap {
     base msd-base-srh;
     description
       "The Maximum H.Encaps MSD Type.";
@@ -346,7 +345,7 @@ module: ietf-mpls-msd
                  over the IPv6 Data Plane";
   }
 }
-  <CODE ENDS>
+<CODE ENDS>
       ]]></artwork>
     </figure>
   </t> 
@@ -358,7 +357,7 @@ module: ietf-mpls-msd
         <t>
     <figure>
       <artwork><![CDATA[
-<CODE BEGINS> file "ietf-mpls-msd@2023-10-22.yang"
+<CODE BEGINS> file "ietf-mpls-msd@2023-12-19.yang"
 module ietf-mpls-msd {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-mpls-msd";
@@ -366,24 +365,21 @@ module ietf-mpls-msd {
 
   import ietf-routing {
     prefix rt;
-    reference 
+    reference
       "RFC 8349: A YANG Data Model for Routing
                  Management (NMDA Version)";
   }
-
   import ietf-mpls {
     prefix mpls;
     reference
       "RFC 8960: A YANG Data Model for MPLS Base";
   }
-
   import iana-msd-types {
     prefix iana-msd-types;
   }
 
   organization
     "IETF Multiprotocol Label Switching (MPLS) Working Group";
-
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/mpls/>
      WG List:  <mailto:mpls@ietf.org>
@@ -396,10 +392,10 @@ module ietf-mpls-msd {
                <mailto:slitkows.ietf@gmail.com>
      Author:    Jeff Tantsura
                <mailto:jefftant.ietf@gmail.com>
-
+     
     ";
   description
-    "The YANG module augments the base MPLS model, and it is to 
+    "The YANG module augments the base MPLS model, and it is to
      provide support for different types of Maximum SID Depth (MSD).
 
      This YANG model conforms to the Network Management
@@ -423,17 +419,33 @@ module ietf-mpls-msd {
      'MAY', and 'OPTIONAL' in this document are to be interpreted as
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.";
+  reference
+    "RFC XXXX: A YANG Data Model for MPLS MSD.";
 
-
-  reference "RFC XXXX: A YANG Data Model for MPLS MSD.";
-
-  revision 2023-10-22 {
+  revision 2023-12-19 {
     description
       "Initial Version";
-    reference 
+    reference
       "RFC XXXX: A YANG Data Model for MPLS MSD.";
   }
 
+  grouping msd-type-value {
+    description
+      "Grouping for MSD type and value.";
+    leaf msd-type {
+      type identityref {
+        base iana-msd-types:msd-base-mpls;
+      }
+      description
+        "MSD types. The MSD type is defined in IANA IGP
+         MSD-Types registry.";
+    }
+    leaf msd-value {
+      type uint8;
+      description
+        "MSD value, in the range of 0-255.";
+    }  
+  }
   augment "/rt:routing/mpls:mpls" {
     description
       "This module augments MPLS data model (RFC 8960)
@@ -443,20 +455,10 @@ module ietf-mpls-msd {
       description
         "Maximum SID Depth (MSD) of a node.";
       list node-msds {
-        leaf msd-type {
-          type identityref {
-            base iana-msd-types:msd-base-mpls;
-          }
-          description
-            "MSD types";
-        }
-        leaf msd-value {
-          type uint8;
-          description
-            "MSD value, in the range of 0-255.";
-        }
+        key "msd-type";
+        uses msd-type-value;
         description
-          "List of different types of MSDs of the node. A type of 
+          "List of different types of MSDs of the node. A type of
            Node MSD is the smallest same type link MSD supported by
            the node.";
       }
@@ -472,25 +474,15 @@ module ietf-mpls-msd {
       description
         "Maximum SID Depth (MSD) of an interface.";
       list link-msds {
-        leaf msd-type {
-          type identityref {
-            base iana-msd-types:msd-base-mpls;
-          }
-          description
-            "MSD type";
-        }
-        leaf msd-value {
-          type uint8;
-          description
-            "MSD value, in the range of 0-255.";
-        }
+        key "msd-type";
+        uses msd-type-value;
         description
           "List of different types of MSDs on the link.";
       }
     }
   }
 }
-  <CODE ENDS>
+<CODE ENDS>
       ]]></artwork>
     </figure>
   </t> 

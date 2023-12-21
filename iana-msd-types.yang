@@ -14,10 +14,9 @@ module iana-msd-types {
              United States of America
      Tel:    +1 310 301 5800
      <mailto:iana@iana.org>";
-
   description
     "The YANG module defines the identities for Maximum SID Depth
-    (MSD) Types.
+     (MSD) Types.
 
      Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
@@ -33,11 +32,11 @@ module iana-msd-types {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2023-10-22 {
+  revision 2023-12-19 {
     description
       "Initial Version";
     reference
-      "RFC XXXX: YA YANG Data Model for MPLS MSD..";
+      "RFC XXXX: A YANG Data Model for MPLS MSD..";
   }
 
   identity msd-base {
@@ -64,10 +63,10 @@ module iana-msd-types {
   identity msd-erld {
     base msd-base-mpls;
     description
-      "msd-erld is defined to advertise the Entropy Readable 
+      "msd-erld is defined to advertise the Entropy Readable
        Label Depth (ERLD).";
     reference
-      "RFC 8662: Entropy Label for Source Packet Routing in 
+      "RFC 8662: Entropy Label for Source Packet Routing in
                  Networking (SPRING) Tunnels";
   }
 
@@ -95,7 +94,7 @@ module iana-msd-types {
                  over the IPv6 Data Plane";
   }
 
-    identity msd-srh-max-hen-cap {
+  identity msd-srh-max-hen-cap {
     base msd-base-srh;
     description
       "The Maximum H.Encaps MSD Type.";

@@ -5,24 +5,21 @@ module ietf-mpls-msd {
 
   import ietf-routing {
     prefix rt;
-    reference 
+    reference
       "RFC 8349: A YANG Data Model for Routing
                  Management (NMDA Version)";
   }
-
   import ietf-mpls {
     prefix mpls;
     reference
       "RFC 8960: A YANG Data Model for MPLS Base";
   }
-
   import iana-msd-types {
     prefix iana-msd-types;
   }
 
   organization
     "IETF Multiprotocol Label Switching (MPLS) Working Group";
-
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/mpls/>
      WG List:  <mailto:mpls@ietf.org>
@@ -35,10 +32,10 @@ module ietf-mpls-msd {
                <mailto:slitkows.ietf@gmail.com>
      Author:    Jeff Tantsura
                <mailto:jefftant.ietf@gmail.com>
-
+     
     ";
   description
-    "The YANG module augments the base MPLS model, and it is to 
+    "The YANG module augments the base MPLS model, and it is to
      provide support for different types of Maximum SID Depth (MSD).
 
      This YANG model conforms to the Network Management
@@ -62,17 +59,33 @@ module ietf-mpls-msd {
      'MAY', and 'OPTIONAL' in this document are to be interpreted as
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.";
+  reference
+    "RFC XXXX: A YANG Data Model for MPLS MSD.";
 
-
-  reference "RFC XXXX: A YANG Data Model for MPLS MSD.";
-
-  revision 2023-10-22 {
+  revision 2023-12-19 {
     description
       "Initial Version";
-    reference 
+    reference
       "RFC XXXX: A YANG Data Model for MPLS MSD.";
   }
 
+  grouping msd-type-value {
+    description
+      "Grouping for MSD type and value.";
+    leaf msd-type {
+      type identityref {
+        base iana-msd-types:msd-base-mpls;
+      }
+      description
+        "MSD types. The MSD type is defined in IANA IGP
+         MSD-Types registry.";
+    }
+    leaf msd-value {
+      type uint8;
+      description
+        "MSD value, in the range of 0-255.";
+    }  
+  }
   augment "/rt:routing/mpls:mpls" {
     description
       "This module augments MPLS data model (RFC 8960)
@@ -82,20 +95,10 @@ module ietf-mpls-msd {
       description
         "Maximum SID Depth (MSD) of a node.";
       list node-msds {
-        leaf msd-type {
-          type identityref {
-            base iana-msd-types:msd-base-mpls;
-          }
-          description
-            "MSD types";
-        }
-        leaf msd-value {
-          type uint8;
-          description
-            "MSD value, in the range of 0-255.";
-        }
+        key "msd-type";
+        uses msd-type-value;
         description
-          "List of different types of MSDs of the node. A type of 
+          "List of different types of MSDs of the node. A type of
            Node MSD is the smallest same type link MSD supported by
            the node.";
       }
@@ -111,18 +114,8 @@ module ietf-mpls-msd {
       description
         "Maximum SID Depth (MSD) of an interface.";
       list link-msds {
-        leaf msd-type {
-          type identityref {
-            base iana-msd-types:msd-base-mpls;
-          }
-          description
-            "MSD type";
-        }
-        leaf msd-value {
-          type uint8;
-          description
-            "MSD value, in the range of 0-255.";
-        }
+        key "msd-type";
+        uses msd-type-value;
         description
           "List of different types of MSDs on the link.";
       }
