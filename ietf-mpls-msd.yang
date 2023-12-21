@@ -62,7 +62,7 @@ module ietf-mpls-msd {
   reference
     "RFC XXXX: A YANG Data Model for MPLS MSD.";
 
-  revision 2023-12-19 {
+  revision 2023-12-21 {
     description
       "Initial Version";
     reference
@@ -73,6 +73,7 @@ module ietf-mpls-msd {
     description
       "Grouping for MSD type and value.";
     leaf msd-type {
+      mandatory true;
       type identityref {
         base iana-msd-types:msd-base-mpls;
       }
@@ -81,6 +82,7 @@ module ietf-mpls-msd {
          MSD-Types registry.";
     }
     leaf msd-value {
+      mandatory true;
       type uint8;
       description
         "MSD value, in the range of 0-255.";
