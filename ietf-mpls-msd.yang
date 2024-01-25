@@ -41,7 +41,7 @@ module ietf-mpls-msd {
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8342.
 
-     Copyright (c) 2023 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -62,7 +62,7 @@ module ietf-mpls-msd {
   reference
     "RFC XXXX: A YANG Data Model for MPLS MSD.";
 
-  revision 2023-12-21 {
+  revision 2024-01-24 {
     description
       "Initial Version";
     reference
@@ -73,17 +73,17 @@ module ietf-mpls-msd {
     description
       "Grouping for MSD type and value.";
     leaf msd-type {
-      mandatory true;
       type identityref {
         base iana-msd-types:msd-base-mpls;
       }
+      mandatory true;
       description
         "MSD types. The MSD type is defined in IANA IGP
          MSD-Types registry.";
     }
     leaf msd-value {
-      mandatory true;
       type uint8;
+      mandatory true;
       description
         "MSD value, in the range of 0-255.";
     }  

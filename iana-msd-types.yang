@@ -18,7 +18,7 @@ module iana-msd-types {
     "The YANG module defines the identities for Maximum SID Depth
      (MSD) Types.
 
-     Copyright (c) 2023 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -32,7 +32,7 @@ module iana-msd-types {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2023-12-19 {
+  revision 2024-01-24 {
     description
       "Initial Version";
     reference
@@ -56,8 +56,12 @@ module iana-msd-types {
     description
       "Base MPLS Imposition MSD.";
     reference
-      "RFC 8491: Signaling Maximum SID Depth (MSD) using IS-IS.
-       RFC 8476: Signaling Maximum SID Depth (MSD) using OSPF.";
+      "RFC 8491: Signaling Maximum SID Depth (MSD) using IS-IS
+       RFC 8476: Signaling Maximum SID Depth (MSD) using OSPF
+       RFC 8664: Path Computation Element Communication Protocol
+                 (PCEP) Extensions for Segment Routing
+       RFC 8814: Signaling Maximum SID Depth (MSD) Using the Border
+                 Gateway Protocol - Link State";
   }
 
   identity msd-erld {
