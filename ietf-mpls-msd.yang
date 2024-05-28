@@ -62,7 +62,7 @@ module ietf-mpls-msd {
   reference
     "RFC XXXX: A YANG Data Model for MPLS MSD.";
 
-  revision 2024-01-24 {
+  revision 2024-05-28 {
     description
       "Initial Version";
     reference
@@ -92,11 +92,11 @@ module ietf-mpls-msd {
     description
       "This module augments MPLS data model (RFC 8960)
        with node MSD.";
-    container node-msd {
+    container node-msds {
       config false;
       description
         "Maximum SID Depth (MSD) of a node.";
-      list node-msds {
+      list node-msd {
         key "msd-type";
         uses msd-type-value;
         description
@@ -111,11 +111,11 @@ module ietf-mpls-msd {
     description
       "This module augments MPLS data model (RFC 8960)
        with link MSD.";
-    container link-msd {
+    container link-msds {
       config false;
       description
         "Maximum SID Depth (MSD) of an interface.";
-      list link-msds {
+      list link-msd {
         key "msd-type";
         uses msd-type-value;
         description
