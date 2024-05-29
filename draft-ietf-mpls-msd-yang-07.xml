@@ -44,7 +44,7 @@
 <?rfc rfcedstyle="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-mpls-msd-yang-06" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-mpls-msd-yang-07" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -100,7 +100,7 @@
 
     <area>General</area>
 
-    <workgroup>Internet</workgroup>
+    <workgroup>MPLS Working Group</workgroup>
 
     <!-- WG name at the upperleft corner of the doc,
          IETF is fine for individual submissions.  
@@ -157,8 +157,11 @@
   <section title="Design of the Model">
     <section title="IANA MSD Types Module">
       <t>
-        Module iana-msd-types is an IANA maintained module, which
-        defines the identities in the IANA IGP MSD-Types registry.
+        IANA has created an IANA-managed registry titled "IGP MSD-Types"
+        under the "Interior Gateway Protocol (IGP) Parameters" registry to
+        identify MSD-Types. Module iana-msd-types is an IANA maintained
+        module, which defines the identities for the MSD-Types as in the
+        IANA IGP MSD-Types registry.
       </t>
       <t>
         On top of the base identity "msd-base", identity "msd-base-mpls"
