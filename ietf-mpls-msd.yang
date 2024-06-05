@@ -52,21 +52,14 @@ module ietf-mpls-msd {
      (https://trustee.ietf.org/license-info).
 
      This version of this YANG module is part of RFC XXXX;
-     see the RFC itself for full legal notices.
+     see the RFC itself for full legal notices.";
 
-     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
-     'MAY', and 'OPTIONAL' in this document are to be interpreted as
-     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-     they appear in all capitals, as shown here.";
-  reference
-    "RFC XXXX: A YANG Data Model for MPLS MSD.";
-
-  revision 2024-05-28 {
+  revision 2024-06-04 {
     description
       "Initial Version";
     reference
-      "RFC XXXX: A YANG Data Model for MPLS MSD.";
+      "RFC XXXX: YANG Model for MPLS Maximum Segment
+                 Identifier (SID) Depth (MSD)";
   }
 
   grouping msd-type-value {
@@ -85,7 +78,8 @@ module ietf-mpls-msd {
       type uint8;
       mandatory true;
       description
-        "MSD value, in the range of 0-255.";
+        "MSD value, in the range of 0-255. 0 represents the lack
+         of ability to support a SID statck of any depth.";
     }  
   }
   augment "/rt:routing/mpls:mpls" {
@@ -100,9 +94,9 @@ module ietf-mpls-msd {
         key "msd-type";
         uses msd-type-value;
         description
-          "List of different types of MSDs of the node. A type of
-           Node MSD is the smallest same type link MSD supported by
-           the node.";
+          "List of different types of node MSDs. For the same
+          type, the value of node MSD is the smallest among link MSD
+          values.";
       }
     }
   }

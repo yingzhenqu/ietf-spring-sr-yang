@@ -4,19 +4,25 @@ module iana-msd-types {
   prefix iana-msd-types;
 
   organization
-    "IANA";
+    "Internet Assigned Numbers Authority (IANA)";
+
   contact
     "Internet Assigned Numbers Authority
 
-     Postal: ICANN
-             12025 Waterfront Drive, Suite 300
-             Los Angeles, CA 90094-2536
-             United States of America
+     ICANN
+     12025 Waterfront Drive, Suite 300
+     Los Angeles, CA 90094-2536
+     United States of America
+     
      Tel:    +1 310 301 5800
      <mailto:iana@iana.org>";
+
   description
-    "The YANG module defines the identities for Maximum SID Depth
-     (MSD) Types.
+    "The YANG module defines the identities for Maximum Segment
+     Identifier (SID) Depth (MSD) Types.
+
+     This YANG module is maintained by IANA and reflects the 'IGP
+     MSD-Types' registry.
 
      Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
@@ -28,15 +34,24 @@ module iana-msd-types {
      Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
+     This initial version of this YANG module is part of RFC XXXX
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
-     for full legal notices.";
+     for full legal notices.
 
-  revision 2024-05-28 {
+     //RFC Ed.: replace XXXX with actual RFC number and remove
+       this note
+
+     //RFC Ed.: replace IANA_FOO_URL and remove this note.
+
+     The latest version of this YANG module is available at
+     <IANA_FOO_URL>.";
+
+  revision 2024-06-04 {
     description
       "Initial Version";
     reference
-      "RFC XXXX: A YANG Data Model for MPLS MSD..";
+      "RFC XXXX: YANG Data Model for MPLS Maximum Segment
+                 Identifier (SID) Depth (MSD)";
   }
 
   identity msd-base {
@@ -48,10 +63,10 @@ module iana-msd-types {
   identity msd-base-mpls {
     base msd-base;
     description
-      "Identity for MSD types applicable to MPLS data plane.";
+      "Identity for MSD types for MPLS data plane.";
   }
 
-  identity msd-mpls {
+  identity base-mpls-imposition-msd {
     base msd-base-mpls;
     description
       "Base MPLS Imposition MSD.";
@@ -64,14 +79,16 @@ module iana-msd-types {
                  Gateway Protocol - Link State";
   }
 
-  identity msd-erld {
+  identity erld-mpls {
     base msd-base-mpls;
     description
       "msd-erld is defined to advertise the Entropy Readable
        Label Depth (ERLD).";
     reference
       "RFC 8662: Entropy Label for Source Packet Routing in
-                 Networking (SPRING) Tunnels";
+                 Networking (SPRING) Tunnels
+       RFC 9088: Signaling Entropy Label Capability and Entropy
+                 Readable Label Depth Using IS-IS";
   }
 
   identity msd-base-srh {
@@ -80,7 +97,7 @@ module iana-msd-types {
       "Identity for MSD types for Segment Routing Header (SRH).";
   }
 
-  identity msd-srh-max-sl {
+  identity srh-max-sl {
     base msd-base-srh;
     description
       "The Maximum Segment Left MSD type.";
@@ -89,7 +106,7 @@ module iana-msd-types {
                  over the IPv6 Data Plane";
   }
 
-  identity msd-srh-max-end-pop {
+  identity srh-max-end-pop {
     base msd-base-srh;
     description
       "The Maximum End Pop MSD Type.";
@@ -98,7 +115,7 @@ module iana-msd-types {
                  over the IPv6 Data Plane";
   }
 
-  identity msd-srh-max-hen-cap {
+  identity srh-max-h-encaps {
     base msd-base-srh;
     description
       "The Maximum H.Encaps MSD Type.";
@@ -107,7 +124,7 @@ module iana-msd-types {
                  over the IPv6 Data Plane";
   }
 
-  identity msd-srh-max-end-d {
+  identity srh-max-end-d {
     base msd-base-srh;
     description
       "The Maximum End D MSD Type.";
