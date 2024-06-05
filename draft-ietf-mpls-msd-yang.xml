@@ -34,6 +34,8 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8662.xml'>
     <!ENTITY RFC8960 PUBLIC '' 
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8960.xml'>
+    <!ENTITY RFC9110 PUBLIC '' 
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.9110.xml'>
     ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc strict="no" ?>
@@ -44,7 +46,7 @@
 <?rfc rfcedstyle="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-mpls-msd-yang-08" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-mpls-msd-yang-09" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -497,20 +499,23 @@ module ietf-mpls-msd {
   
 
     <section anchor="Security" title="Security Considerations">
-    <t>The YANG modules specified in this document define a schema for 
-       data that is designed to be accessed via network
-       management protocols such as NETCONF <xref target="RFC6241"/> or
-       RESTCONF <xref target="RFC8040"/>. The lowest NETCONF layer is the secure transport
-       layer, and the mandatory-to-implement secure transport is Secure Shell (SSH)
-       <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
-       mandatory-to-implement secure transport is TLS <xref target="RFC8446"/>.</t>
+    <t>
+      The YANG modules specified in this document define a schema for data
+      that is designed to be accessed via network management protocols such
+      as NETCONF <xref target="RFC6241"/> or RESTCONF <xref target="RFC8040"/>.
+      These network management protocols are required to use a secure
+      transport layer and mutual authentication, e.g., SSH <xref target="RFC6242"/>
+      without the "none" authentication option, Transport Layer Security (TLS)
+      <xref target="RFC8446"/> with mutual X.509 authentication, and HTTPS
+      with HTTP authentication (Section 11 of <xref target="RFC9110"/>).</t>
+
 
    <t>The NETCONF Access Control Model (NACM) <xref target="RFC8341"/> provides the 
       means to restrict access for particular NETCONF or RESTCONF users to a
       pre-configured subset of all available NETCONF or RESTCONF protocol 
       operations and content.</t> 
 
-   <t>Some of the readable data nodes in the modules
+   <t>Some of the readable data nodes in the ietf-mpls-msd YANG module
       may be considered sensitive or vulnerable in some network environments. It is thus 
       important to control read access (e.g., via get, get-config, or notification)
       to these data nodes. These are the
@@ -522,6 +527,13 @@ module ietf-mpls-msd {
           Denial-of-Service (DoS) attack by sending packets to the node that 
           the router can't process.</t>
       </list></t>
+    <t>
+      The iana-msd-types YANG module defines a set of identities, which mirrors
+      the IANA IGP MSD-Types registry. These identities are intended to be reused
+      by other YANG modules. The module by itself does not expose any data nodes
+      that are writable or readable. As such, there are no additional security
+      issues related to this YANG module that need to be considered.
+    </t>
 
    </section>
 <section title="IANA Considerations">
@@ -551,6 +563,7 @@ module ietf-mpls-msd {
    <figure>
    <artwork>  
    name: iana-msd-types
+   Maintained by IANA?  Y
    namespace: urn:ietf:params:xml:ns:yang:iana-msd-types
    prefix: iana-msd-types
    reference: RFC XXXX
@@ -559,6 +572,7 @@ module ietf-mpls-msd {
 
    <artwork>  
    name: ietf-mpls-msd
+   Maintained by IANA?  N
    namespace: urn:ietf:params:xml:ns:yang:ietf-mpls-msd
    prefix: mpls-msd
    reference: RFC XXXX
@@ -600,13 +614,14 @@ module ietf-mpls-msd {
     <t>
       When a MSD type is added to the "IGP MSD-Types" registry, a new "identity"
       statement must be added to the "iana-msd-types" YANG module. Then name of the
-      "identity" is a lower-case version of the type name provided in the description.
-      The "identity" statement should have the following sub-statements defined:</t>
+      "identity" is a lower-case version of the type name provided in the name with
+      the space replaced with "-". The "identity" statement should have the
+      following sub-statements defined:</t>
       <dl newline="false" spacing="normal" indent="15">
           <dt>"base":</dt>
           <dd>Contains the base name of the corresponding data plane.</dd>
           <dt>"description":</dt>
-          <dd>Replicates the description from the registry.</dd>
+          <dd>Replicates the name from the registry.</dd>
           <dt>"reference":</dt>
           <dd>Replicates the reference from
             the registry with the title of the document added.</dd>
@@ -667,6 +682,7 @@ module ietf-mpls-msd {
       &RFC8476;
       &RFC8491;
       &RFC8960;
+      &RFC9110;
       <reference anchor="IANA-IGP-MSD-Types" target="https://www.iana.org/assignments/igp-parameters" quoteTitle="true" derivedAnchor="IANA-IGP-MSD-Types">
           <front>
             <title>IGP MSD-Types</title>
