@@ -46,7 +46,7 @@
 <?rfc rfcedstyle="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-mpls-msd-yang-09" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-mpls-msd-yang-10" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -631,6 +631,27 @@ module ietf-mpls-msd {
     <t>When the "iana-msd-types" YANG module is updated, a new "revision"
         statement with a unique revision date must be added in front of the
         existing revision statements.</t>
+    <t>
+      IANA is requested to the add a "data-plane" column to the 
+     "IGP MSD-Types" registry. This will unequivocally identify the 
+     base identity for MSD-Types. The values for the Data-Plane 
+     column for existing MSD-Types are: </t>
+    <artwork>
+    
+Value      Name                      Data-Plane   Reference 
+0          Reserved                  N/A          [RFC8491] 
+1          Base MPLS Imposition MSD  MPLS         [RFC8491]  
+2          ERLD-MSD                  MPLS         [RFC9088] 
+3-40       Unassigned                N/A  
+41         SRH Max SL                SRv6         [RFC9352] 
+42         SRH Max End Pop           SRv6         [RFC9352] 
+43         Unassigned                N/A  
+44         SRH Max H.encaps          SRv6         [RFC9352] 
+45         SRH Max End               SRv6         [RFC9352] 
+46-250     Unassigned                N/A  
+251-254    Experimental Use          N/A          [RFC8491] 
+255        Reserved                  N/A          [RFC8491]
+   </artwork>
     <t>
         IANA is requested to add this note to <xref target="IANA-IGP-MSD-Types"/>:
       <list style="empty">
