@@ -46,12 +46,12 @@ module iana-msd-types {
      The latest version of this YANG module is available at
      <IANA_FOO_URL>.";
 
-  revision 2024-06-04 {
+  revision 2024-07-04 {
     description
       "Initial Version";
     reference
-      "RFC XXXX: YANG Data Model for MPLS Maximum Segment
-                 Identifier (SID) Depth (MSD)";
+      "RFC XXXX: YANG Data Model for Maximum SID Depth Types and
+                 MPLS Maximum SID Depth";
   }
 
   identity msd-base {
@@ -63,7 +63,7 @@ module iana-msd-types {
   identity msd-base-mpls {
     base msd-base;
     description
-      "Identity for MSD types for MPLS data plane.";
+      "Base identity of MSD types for MPLS data plane.";
   }
 
   identity base-mpls-imposition-msd {
@@ -79,7 +79,7 @@ module iana-msd-types {
                  Gateway Protocol - Link State";
   }
 
-  identity erld-mpls {
+  identity erld-msd {
     base msd-base-mpls;
     description
       "msd-erld is defined to advertise the Entropy Readable
@@ -94,7 +94,7 @@ module iana-msd-types {
   identity msd-base-srh {
     base msd-base;
     description
-      "Identity for MSD types for Segment Routing Header (SRH).";
+      "Base identity of MSD types for Segment Routing Header (SRH).";
   }
 
   identity srh-max-sl {
