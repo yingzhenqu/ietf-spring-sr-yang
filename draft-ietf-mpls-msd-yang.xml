@@ -46,7 +46,7 @@
 <?rfc rfcedstyle="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" docName="draft-ietf-mpls-msd-yang-11" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-mpls-msd-yang-12" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -172,7 +172,7 @@
         MPLS data plane.
       </t>
       <t>
-        As defined in <xref target="RFC8491"/>, a Link MSD represents
+        As defined in <xref target="RFC8491"/>, a Link MSD is
         the number of SIDs supported by a node's link, while a Node MSD is
         the smallest MSD supported by the node across all its interfaces.
         The module defines lists
@@ -195,12 +195,12 @@ module: ietf-mpls-msd
     +--ro node-msds
        +--ro node-msd* [msd-type]
           +--ro msd-type     identityref
-          +--ro msd-value    uint8
+          +--ro msd-value?   uint8
   augment /rt:routing/mpls:mpls/mpls:interfaces/mpls:interface:
     +--ro link-msds
        +--ro link-msd* [msd-type]
           +--ro msd-type     identityref
-          +--ro msd-value    uint8
+          +--ro msd-value?   uint8
 
       </artwork>
     </figure> 
@@ -366,7 +366,7 @@ module iana-msd-types {
         <t>
     <figure>
       <artwork><![CDATA[
-<CODE BEGINS> file "ietf-mpls-msd@2024-07-04.yang"
+<CODE BEGINS> file "ietf-mpls-msd@2024-07-05.yang"
 module ietf-mpls-msd {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-mpls-msd";
@@ -423,7 +423,7 @@ module ietf-mpls-msd {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2024-07-04 {
+  revision 2024-07-05 {
     description
       "Initial Version";
     reference
@@ -438,14 +438,12 @@ module ietf-mpls-msd {
       type identityref {
         base iana-msd-types:msd-base-mpls;
       }
-      mandatory true;
       description
         "MSD types. The MSD type is defined in IANA IGP
          MSD-Types registry.";
     }
     leaf msd-value {
       type uint8;
-      mandatory true;
       description
         "MSD value, in the range of 0-255. 0 represents the lack
          of ability to support a SID stack of any depth.";

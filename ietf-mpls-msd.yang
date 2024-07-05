@@ -54,7 +54,7 @@ module ietf-mpls-msd {
      This version of this YANG module is part of RFC XXXX;
      see the RFC itself for full legal notices.";
 
-  revision 2024-07-04 {
+  revision 2024-07-05 {
     description
       "Initial Version";
     reference
@@ -69,14 +69,12 @@ module ietf-mpls-msd {
       type identityref {
         base iana-msd-types:msd-base-mpls;
       }
-      mandatory true;
       description
         "MSD types. The MSD type is defined in IANA IGP
          MSD-Types registry.";
     }
     leaf msd-value {
       type uint8;
-      mandatory true;
       description
         "MSD value, in the range of 0-255. 0 represents the lack
          of ability to support a SID stack of any depth.";
